@@ -4,25 +4,12 @@ import styled from "styled-components";
 import { validateEmail } from "../../schemas/userValidations";
 import { storeUserDAta } from "../../Services/loginPersistence";
 import { postLogin } from "../../Services/TechCommer";
+import { handleEmailAlert, handlePasswordAlert } from "../../factories/alerts";
 
 export default function SigninPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [sendStatus, setSendStatus] = useState(false);
-
-  const handlePasswordAlert = () => {
-    if (!password && sendStatus) {
-      return <Alert>A senha é obrigatória.</Alert>;
-    }
-  };
-
-  const handleEmailAlert = (email) => {
-    const shouldAlertUser = !validateEmail(email);
-
-    if (shouldAlertUser && sendStatus) {
-      return <Alert>Insira um e-mail válido!</Alert>;
-    }
-  };
 
   const handleSubmitLogin = (e, email, password) => {
     e.preventDefault();
@@ -48,14 +35,14 @@ export default function SigninPage() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          {handleEmailAlert(email)}
+          {handleEmailAlert(email, sendStatus)}
           <input
             type="password"
             placeholder="Senha"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {handlePasswordAlert()}
+          {handlePasswordAlert(password, sendStatus)}
         </Inputs>
         <span></span>
         <Submit
@@ -157,11 +144,4 @@ const Helper = styled.div`
       cursor: pointer;
     }
   }
-`;
-
-const Alert = styled.span`
-  color: hsl(0, 77%, 56%);
-  margin-bottom: 0.5rem;
-  font-size: 0.6rem;
-  margin-left: 0.6rem;
 `;
