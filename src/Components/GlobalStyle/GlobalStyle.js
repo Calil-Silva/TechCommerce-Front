@@ -1,5 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
-import styled from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
     @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap');
     * {
@@ -73,6 +72,10 @@ const GlobalStyle = createGlobalStyle`
     :-ms-input-placeholder {  
         font-size: 19.98px;
         color: #DBDBDB;  
+    }
+
+    a {
+        text-decoration: none;
     }
 `;
 
