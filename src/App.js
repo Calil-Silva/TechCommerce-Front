@@ -1,6 +1,7 @@
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import UserContext from "./contexts/UserContext";
+import UserContext from "./Contexts/UserContext";
 import { useState } from "react";
+import GlobalStyle from "./Components/GlobalStyle/GlobalStyle";
 
 export default function App () {
 
@@ -21,6 +22,7 @@ export default function App () {
                     </Route>
                 </Switch>
             </BrowserRouter>
+            <GlobalStyle />
         </UserContext.Provider >
     )
 }
