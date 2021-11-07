@@ -18,7 +18,7 @@ const handleEmailAlert = (email, sendStatus) => {
 const Alert = styled.span`
   color: hsl(0, 77%, 56%);
   margin-bottom: 0.5rem;
-  font-size: 0.6rem;
+  font-size: 0.75rem;
   margin-left: 0.6rem;
 `;
 

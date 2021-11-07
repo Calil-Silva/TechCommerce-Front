@@ -12,7 +12,7 @@ export default function App() {
       <BrowserRouter>
         {/* {userData ? <Topbar /> : ""} */}
         <Switch>
-          <Route path="/" component={SigninPage} exact />
+          <Route path="/signin" component={SigninPage} exact />
           <Route path="/sign-up" exact />
           <Route path="/home" exact />
         </Switch>

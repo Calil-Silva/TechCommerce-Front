@@ -10,21 +10,27 @@ export default function SigninPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [sendStatus, setSendStatus] = useState(false);
+  const userData = {
+    email,
+    password,
+  };
+  const links = ['Condições de uso', 'Política de privacidade', 'Ajuda', 'Cookies', 'Fale conosco'];
+  const ref =  '© 1009-2021, TechCommerce, Inc. ou suas afiliadas';
 
-  const handleSubmitLogin = (e, email, password) => {
+  const handleSubmitLogin = (e) => {
     e.preventDefault();
 
     if (!validateEmail(email)) {
-      setSendStatus(true);
-      return;
+      return setSendStatus(true);
     }
 
-    postLogin({ email, password })
+    postLogin(userData)
       .then((res) => storeUserDAta(res.data))
-      .catch((err) => alert(err.response.data.massage));
+      .catch((err) => alert(err.response.data.message));
   };
 
   return (
+    <>
     <FormContainer>
       <Form>
         <Header>Por gentileza, insira seus dados nos campos abaixo.</Header>
@@ -60,6 +66,12 @@ export default function SigninPage() {
         </Helper>
       </Form>
     </FormContainer>
+    <Divider />
+    <Links>
+    {links.map(((link, index) => <a href="#" key={index}>{link}</a>))}
+    </Links>
+    <Info>{ref}</Info>
+    </>
   );
 }
 
@@ -99,8 +111,8 @@ const Inputs = styled.div`
   input {
     margin-bottom: 0.5rem;
     width: 100%;
-    height: 2.3rem;
-    max-width: 15rem;
+    height: 3rem;
+    max-width: 25rem;
     border-radius: 8px;
     border: 1px solid hsl(240, 6%, 83%);
     padding-left: 1rem;
@@ -109,17 +121,18 @@ const Inputs = styled.div`
       margin-bottom: 2rem;
     }
     ::placeholder {
-      font-size: 0.75rem;
+      font-size: 0.9rem;
       color: hsl(240, 2%, 54%);
     }
   }
 `;
 
 const Submit = styled.input`
+margin-top: 1rem;
   margin-bottom: 0.5rem;
   width: 100%;
-  max-width: 15rem;
-  height: 2.3rem;
+  max-width: 25rem;
+  height: 3rem;
   border-radius: 8px;
   border: none;
   background-color: hsl(242, 60%, 59%);
@@ -136,8 +149,8 @@ const Helper = styled.div`
   p {
     width: 100%;
     margin-bottom: 0.5rem;
-    max-width: 15rem;
-    font-size: 0.7rem;
+    max-width: 25rem;
+    font-size: 0.9rem;
     margin-left: 0.6rem;
     :hover {
       color: hsl(240, 2%, 54%);
@@ -145,3 +158,30 @@ const Helper = styled.div`
     }
   }
 `;
+
+const Divider = styled.div`
+  width: 100%;
+  height: 1px;
+  box-shadow: 0 .1rem 0.2rem black;
+`;
+
+const Links = styled.div`
+  display: flex;
+  justify-content: center;
+  column-gap: 1rem;
+  margin: 1.5rem 2rem;
+  a {
+    font-size: .9rem;
+  }
+  @media (max-width: 690px) {
+    margin: 1.5rem 1rem;
+    a{
+      font-size: 0.7rem;
+    }
+    }
+`;
+
+const Info = styled.p`
+  text-align: center;
+
+`
