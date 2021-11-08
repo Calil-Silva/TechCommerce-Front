@@ -10,67 +10,86 @@ export default function SigninPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [sendStatus, setSendStatus] = useState(false);
+  const [disableSubmit, setDisableSubmit] = useState(false);
   const userData = {
     email,
     password,
   };
-  const links = ['Condições de uso', 'Política de privacidade', 'Ajuda', 'Cookies', 'Fale conosco'];
-  const ref =  '© 1009-2021, TechCommerce, Inc. ou suas afiliadas';
+  const links = [
+    "Condições de uso",
+    "Política de privacidade",
+    "Ajuda",
+    "Cookies",
+    "Fale conosco",
+  ];
+  const ref = "© 1009-2021, TechCommerce, Inc. ou suas afiliadas";
 
   const handleSubmitLogin = (e) => {
     e.preventDefault();
+    setDisableSubmit(true);
 
     if (!validateEmail(email)) {
       return setSendStatus(true);
     }
 
     postLogin(userData)
-      .then((res) => storeUserDAta(res.data))
-      .catch((err) => alert(err.response.data.message));
+      .then((res) => {
+        storeUserDAta(res.data);
+        setDisableSubmit(false);
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+        setDisableSubmit(false);
+      });
   };
 
   return (
     <>
-    <FormContainer>
-      <Form>
-        <Header>Por gentileza, insira seus dados nos campos abaixo.</Header>
-        <Inputs>
-          <input
-            type="email"
-            placeholder="E-mail"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
+      <FormContainer>
+        <Form>
+          <Header>Por gentileza, insira seus dados nos campos abaixo.</Header>
+          <Inputs>
+            <input
+              type="email"
+              placeholder="E-mail"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
+            {handleEmailAlert(email, sendStatus)}
+            <input
+              type="password"
+              placeholder="Senha"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+            {handlePasswordAlert(password, sendStatus)}
+          </Inputs>
+          <span></span>
+          <Submit
+            type="submit"
+            value="Entrar"
+            disabled={disableSubmit}
+            onClick={(e) => handleSubmitLogin(e)}
           />
-          {handleEmailAlert(email, sendStatus)}
-          <input
-            type="password"
-            placeholder="Senha"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          {handlePasswordAlert(password, sendStatus)}
-        </Inputs>
-        <span></span>
-        <Submit
-          type="submit"
-          value="Entrar"
-          onClick={(e) => handleSubmitLogin(e)}
-        />
-        <Helper>
-          <Link to="/forgetPassword">
-            <p>Esqueceu sua senha?</p>
-          </Link>
-          <Link to="/register">
-            <p>Ainda não tem uma conta? Crie agora.</p>
-          </Link>
-        </Helper>
-      </Form>
-    </FormContainer>
-    <Divider />
-    <Links>
-    {links.map(((link, index) => <a href="#" key={index}>{link}</a>))}
-    </Links>
-    <Info>{ref}</Info>
+          <Helper>
+            <Link to="/forgetPassword">
+              <p>Esqueceu sua senha?</p>
+            </Link>
+            <Link to="/register">
+              <p>Ainda não tem uma conta? Crie agora.</p>
+            </Link>
+          </Helper>
+        </Form>
+      </FormContainer>
+      <Divider />
+      <Links>
+        {links.map((link, index) => (
+          <a href="#" key={index}>
+            {link}
+          </a>
+        ))}
+      </Links>
+      <Info>{ref}</Info>
     </>
   );
 }
@@ -128,14 +147,15 @@ const Inputs = styled.div`
 `;
 
 const Submit = styled.input`
-margin-top: 1rem;
+  margin-top: 1rem;
   margin-bottom: 0.5rem;
   width: 100%;
   max-width: 25rem;
   height: 3rem;
   border-radius: 8px;
   border: none;
-  background-color: hsl(242, 60%, 59%);
+  background-color: ${({ disabled }) =>
+    disabled ? "hsl(242, 60%, 59%)" : "hsl(242, 60%, 59%)"};
   color: #fff;
 
   :hover {
@@ -162,7 +182,7 @@ const Helper = styled.div`
 const Divider = styled.div`
   width: 100%;
   height: 1px;
-  box-shadow: 0 .1rem 0.2rem black;
+  box-shadow: 0 0.1rem 0.2rem black;
 `;
 
 const Links = styled.div`
@@ -171,17 +191,16 @@ const Links = styled.div`
   column-gap: 1rem;
   margin: 1.5rem 2rem;
   a {
-    font-size: .9rem;
+    font-size: 0.9rem;
   }
   @media (max-width: 690px) {
     margin: 1.5rem 1rem;
-    a{
+    a {
       font-size: 0.7rem;
     }
-    }
+  }
 `;
 
 const Info = styled.p`
   text-align: center;
-
-`
+`;
