@@ -33,7 +33,7 @@ const MenuDiv = styled.div`
     height: ${({visible}) => visible ? '100vh' : '0vh'};
     transition: height 1 ease-in;
     animation: ${({visible}) => visible ? menuAnimationOpen : menuAnimationClose} 0.5s;
-    background-color: rgba(0, 0, 0, 0.9);
+    background-color: rgba(0, 0, 0, 1);
     overflow: hidden;
     z-index: 5;
 `;
@@ -54,8 +54,9 @@ const Header = styled.header`
     position: fixed;
     width: 100%;
     height: 44px;
-    background-color: ${({visible}) => visible ? 'rgba(0, 0, 0, 0.9);' : 'rgba(0, 0, 0, 0.8)'};
+    background-color: ${({visible}) => visible ? 'rgba(0, 0, 0, 1);' : 'rgba(0, 0, 0, 0.8)'};
     transition: background-color 0.5s ease-in;
+    z-index: 5;
 `;
 
 const Ul = styled.ul`

@@ -16,6 +16,7 @@ export default function App () {
                 <Topbar />
                 <Switch>
                     <Route path="/" exact>
+                        <Home />
                     </Route>
 
                     <Route path="/sign-up" exact>
