@@ -4,23 +4,22 @@ import { useState } from "react";
 import GlobalStyle from "./Components/GlobalStyle/GlobalStyle";
 import SignUp from "./Components/SignUp/SignUp";
 
-export default function App () {
+export default function App() {
+  const [userData, setUserData] = useState(null);
 
-    const [userData, setUserData] = useState(null);
+  return (
+    <UserContext.Provider value={{ userData, setUserData }}>
+      <BrowserRouter>
+        <GlobalStyle />
+        {/* {userData ? <Topbar /> : ""} */}
+        <Switch>
+          <Route path="/" exact />
 
-    return (
-        <UserContext.Provider value={{ userData, setUserData }} >
-            <BrowserRouter>
-                {/* {userData ? <Topbar /> : ""} */}
-                <Switch>
-                    <Route path="/" exact />
+          <Route path="/sign-up" component={SignUp} exact />
 
-                    <Route path="/sign-up" component={SignUp} exact />
-
-                    <Route path="/home" exact />
-                </Switch>
-            </BrowserRouter>
-            <GlobalStyle />
-        </UserContext.Provider >
-    )
+          <Route path="/home" exact />
+        </Switch>
+      </BrowserRouter>
+    </UserContext.Provider>
+  );
 }
