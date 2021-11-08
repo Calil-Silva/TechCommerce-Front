@@ -5,14 +5,14 @@ import { validateEmail } from "../../schemas/userValidations";
 import { storeUserDAta } from "../../Services/loginPersistence";
 import { postLogin } from "../../Services/TechCommer";
 import { handleEmailAlert, handlePasswordAlert } from "../../factories/alerts";
+import { useHistory } from "react-router-dom";
 
 export default function SigninPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [sendStatus, setSendStatus] = useState(false);
   const [disableSubmit, setDisableSubmit] = useState(false);
-
-  console.log(validateEmail(email))
+  const history = useHistory();
 
   const userData = {
     email,
@@ -40,6 +40,7 @@ export default function SigninPage() {
         console.log(res)
         storeUserDAta(res.data);
         setDisableSubmit(false);
+        history.push('/home')
       })
       .catch((err) => {
         alert(err.response.data.message);
