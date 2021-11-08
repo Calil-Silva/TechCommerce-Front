@@ -73,12 +73,6 @@ const GlobalStyle = createGlobalStyle`
         font-size: 19.98px;
         color: #DBDBDB;  
     }
-<<<<<<< HEAD
-
-    a {
-        text-decoration: none;
-    }
-=======
     a {
         text-decoration: none;
         border: none;
@@ -87,7 +81,6 @@ const GlobalStyle = createGlobalStyle`
 
     /* Chamada font 
     font-family: 'Source Sans Pro', sans-serif; */
->>>>>>> master
 `;
 
 export default GlobalStyle;
