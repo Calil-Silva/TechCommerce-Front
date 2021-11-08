@@ -37,7 +37,6 @@ export default function SigninPage() {
 
     postLogin(userData)
       .then((res) => {
-        console.log(res)
         storeUserDAta(res.data);
         setDisableSubmit(false);
         history.push('/home')
