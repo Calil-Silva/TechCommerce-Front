@@ -12,6 +12,8 @@ export default function SigninPage() {
   const [sendStatus, setSendStatus] = useState(false);
   const [disableSubmit, setDisableSubmit] = useState(false);
 
+  console.log(validateEmail(email))
+
   const userData = {
     email,
     password,
@@ -30,7 +32,7 @@ export default function SigninPage() {
     setDisableSubmit(true);
 
     if (!validateEmail(email)) {
-      return setSendStatus(true);
+       setSendStatus(true);
     }
 
     postLogin(userData)
@@ -175,6 +177,7 @@ const Helper = styled.div`
     max-width: 25rem;
     font-size: 0.9rem;
     margin-left: 0.6rem;
+    color: blue;
     :hover {
       color: hsl(240, 2%, 54%);
       cursor: pointer;
@@ -195,6 +198,7 @@ const Links = styled.div`
   margin: 1.5rem 2rem;
   a {
     font-size: 0.9rem;
+    color: blue;
   }
   @media (max-width: 690px) {
     margin: 1.5rem 1rem;
