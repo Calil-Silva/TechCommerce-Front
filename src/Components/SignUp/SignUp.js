@@ -15,16 +15,6 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
 
-  console.log(
-    selectedCountry,
-    birthDate,
-    name,
-    surname,
-    email,
-    password,
-    confirmedPassword
-  );
-
   return (
     <>
       <HeaderContainer>
