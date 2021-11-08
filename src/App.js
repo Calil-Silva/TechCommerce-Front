@@ -2,6 +2,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import UserContext from "./Contexts/UserContext";
 import { useState } from "react";
 import GlobalStyle from "./Components/GlobalStyle/GlobalStyle";
+import SignUp from "./Components/SignUp/SignUp";
 
 export default function App () {
 
@@ -12,14 +13,11 @@ export default function App () {
             <BrowserRouter>
                 {/* {userData ? <Topbar /> : ""} */}
                 <Switch>
-                    <Route path="/" exact>
-                    </Route>
+                    <Route path="/" exact />
 
-                    <Route path="/sign-up" exact>
-                    </Route>
+                    <Route path="/sign-up" component={SignUp} exact />
 
-                    <Route path="/home" exact>
-                    </Route>
+                    <Route path="/home" exact />
                 </Switch>
             </BrowserRouter>
             <GlobalStyle />

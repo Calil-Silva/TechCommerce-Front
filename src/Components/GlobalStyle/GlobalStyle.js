@@ -1,7 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
-import styled from 'styled-components';
 const GlobalStyle = createGlobalStyle`
-    @import url('https://fonts.googleapis.com/css2?family=Lexend+Deca&display=swap');
     * {
         box-sizing: border-box;
     }
@@ -37,7 +35,7 @@ const GlobalStyle = createGlobalStyle`
     }
     body {
         line-height: 1;
-        font-family: 'Lexend Deca', sans-serif;
+        font-family: 'Source Sans Pro', sans-serif;
         background-color: #ffffff;
     }
     ol, ul {
@@ -74,6 +72,16 @@ const GlobalStyle = createGlobalStyle`
         font-size: 19.98px;
         color: #DBDBDB;  
     }
+
+    ol, ul {
+         font-size: 19.98px;
+         color: #DBDBDB;  
+     }
+
+    a {
+         text-decoration: none;
+         border: none;
+     }
 `;
 
 export default GlobalStyle;
