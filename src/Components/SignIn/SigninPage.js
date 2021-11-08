@@ -11,6 +11,7 @@ export default function SigninPage() {
   const [password, setPassword] = useState("");
   const [sendStatus, setSendStatus] = useState(false);
   const [disableSubmit, setDisableSubmit] = useState(false);
+
   const userData = {
     email,
     password,
@@ -34,6 +35,7 @@ export default function SigninPage() {
 
     postLogin(userData)
       .then((res) => {
+        console.log(res)
         storeUserDAta(res.data);
         setDisableSubmit(false);
       })
@@ -69,13 +71,14 @@ export default function SigninPage() {
             type="submit"
             value="Entrar"
             disabled={disableSubmit}
+            disableSubmit={disableSubmit}
             onClick={(e) => handleSubmitLogin(e)}
           />
           <Helper>
             <Link to="/forgetPassword">
               <p>Esqueceu sua senha?</p>
             </Link>
-            <Link to="/register">
+            <Link to="/signup">
               <p>Ainda não tem uma conta? Crie agora.</p>
             </Link>
           </Helper>
@@ -84,7 +87,7 @@ export default function SigninPage() {
       <Divider />
       <Links>
         {links.map((link, index) => (
-          <a href="#" key={index}>
+          <a href="http://localhost:3000/signin" key={index}>
             {link}
           </a>
         ))}
@@ -154,12 +157,12 @@ const Submit = styled.input`
   height: 3rem;
   border-radius: 8px;
   border: none;
-  background-color: ${({ disabled }) =>
-    disabled ? "hsl(242, 60%, 59%)" : "hsl(242, 60%, 59%)"};
+  background-color: hsl(242, 60%, 59%);
   color: #fff;
 
   :hover {
-    background-color: hsl(242, 60%, 69%);
+    background-color: ${({ disableSubmit }) =>
+    disableSubmit ? "hsl(242, 60%, 80%)" : "hsl(242, 60%, 69%)"};
     box-shadow: 0 0 1em red;
     cursor: pointer;
   }
