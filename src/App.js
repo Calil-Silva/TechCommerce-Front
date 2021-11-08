@@ -3,6 +3,8 @@ import UserContext from "./Contexts/UserContext";
 import { useState } from "react";
 import GlobalStyle from "./Components/GlobalStyle/GlobalStyle";
 import SigninPage from "./Components/SignIn/SigninPage";
+import Topbar from "./Components/TopBar/TopBar";
+import Home from "./Components/Home/Home";
 
 export default function App() {
   const [userData, setUserData] = useState(null);
@@ -11,10 +13,13 @@ export default function App() {
     <UserContext.Provider value={{ userData, setUserData }}>
       <BrowserRouter>
         {/* {userData ? <Topbar /> : ""} */}
+        <Topbar />
         <Switch>
           <Route path="/signin" component={SigninPage} exact />
-          <Route path="/sign-up" exact />
-          <Route path="/home" exact />
+          <Route path="/signup" exact />
+          <Route path="/home" exact >
+          <Home />
+          </Route>
         </Switch>
       </BrowserRouter>
       <GlobalStyle />
