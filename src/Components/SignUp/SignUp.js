@@ -1,9 +1,15 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 import { country_arr } from "../../Data/countris";
 import { SiHandshake } from "react-icons/si";
 import CountriesList from "./CountriesList";
+import { postSignup } from "../../Services/TechCommer";
+import {
+  validateInputs,
+  comparePasswords,
+  validEmail,
+} from "../../schemas/userValidations";
 
 export default function SignUp() {
   const [openContries, setOpenCantries] = useState(false);
@@ -14,9 +20,45 @@ export default function SignUp() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
+  const [disableSubmit, setDisableSubmit] = useState(false);
+  const userData = {
+    name: `${name} ${surname}`,
+    selectedCountry,
+    birthDate: new Date(birthDate.split("-").join("/")),
+    email,
+    password,
+    confirmedPassword,
+  };
+  const history = useHistory();
+
+  function handleSignupSubmit() {
+    setDisableSubmit(true);
+    if (!validateInputs(userData)) {
+      setDisableSubmit(false);
+      return;
+    }
+
+    const invalidCredentials =
+      !comparePasswords(password, confirmedPassword) || !validEmail(email);
+
+    if (invalidCredentials) {
+      setDisableSubmit(false);
+      return;
+    }
+
+    postSignup(userData)
+      .then((res) => {
+        alert(res.data.message);
+        history.push("/signup");
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+        setDisableSubmit(true);
+      });
+  }
 
   return (
-    <>
+    <Body>
       <HeaderContainer>
         <HeaderWrapper>
           <Link to="/home">
@@ -68,7 +110,7 @@ export default function SignUp() {
               <span>Data de nascimento</span>
               <input
                 placeholder="Data de nascimento"
-                type="text"
+                type="date"
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
               />
@@ -106,7 +148,12 @@ export default function SignUp() {
             determinados dados de uso para fins de segurança, suporte e geração
             de relatórios. Veja como os seus dados são gerenciados.
           </span>
-          <input type="submit" value="Continuar" />
+          <input
+            type="submit"
+            value="Continuar"
+            disabled={disableSubmit}
+            onClick={() => handleSignupSubmit()}
+          />
         </SubmitSection>
         <CountriesContainer>
           <CounstriesList openContries={openContries}>
@@ -123,9 +170,14 @@ export default function SignUp() {
           </CounstriesList>
         </CountriesContainer>
       </OuterDiv>
-    </>
+    </Body>
   );
 }
+
+const Body = styled.div`
+  position: relative;
+  top: 44px;
+`;
 
 const HeaderContainer = styled.div`
   height: 3.5rem;
@@ -142,6 +194,7 @@ const HeaderWrapper = styled.div`
 
   h1 {
     font-size: 1.5rem;
+    color: black;
   }
 
   @media (max-width: 1300px) {
