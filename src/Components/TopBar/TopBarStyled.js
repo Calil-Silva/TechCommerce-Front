@@ -26,6 +26,7 @@ const menuAnimationClose = keyframes`
 `;
 
 const MenuDiv = styled.div`
+<<<<<<< HEAD
   position: fixed;
   display: flex;
   justify-content: center;
@@ -38,6 +39,18 @@ const MenuDiv = styled.div`
   background-color: rgba(0, 0, 0, 0.9);
   overflow: hidden;
   z-index: 5;
+=======
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    height: ${({visible}) => visible ? '100vh' : '0vh'};
+    transition: height 1 ease-in;
+    animation: ${({visible}) => visible ? menuAnimationOpen : menuAnimationClose} 0.5s;
+    background-color: rgba(0, 0, 0, 1);
+    overflow: hidden;
+    z-index: 5;
+>>>>>>> dev
 `;
 
 const MenuContainer = styled.div`
@@ -53,6 +66,7 @@ const MenuContainer = styled.div`
 `;
 
 const Header = styled.header`
+<<<<<<< HEAD
   position: fixed;
   width: 100%;
   height: 44px;
@@ -60,6 +74,14 @@ const Header = styled.header`
     visible ? "rgba(0, 0, 0, 0.9);" : "rgba(0, 0, 0, 0.8)"};
   transition: background-color 0.5s ease-in;
   z-index: 1;
+=======
+    position: fixed;
+    width: 100%;
+    height: 44px;
+    background-color: ${({visible}) => visible ? 'rgba(0, 0, 0, 1);' : 'rgba(0, 0, 0, 0.8)'};
+    transition: background-color 0.5s ease-in;
+    z-index: 5;
+>>>>>>> dev
 `;
 
 const Ul = styled.ul`

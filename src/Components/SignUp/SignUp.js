@@ -65,7 +65,7 @@ export default function SignUp() {
     <Body>
       <HeaderContainer>
         <HeaderWrapper>
-          <Link to="/home">
+          <Link to="/">
             <h1>ID TechCommerce</h1>
           </Link>
           <LinksWrapper>

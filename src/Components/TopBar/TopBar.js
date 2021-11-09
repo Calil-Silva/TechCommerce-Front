@@ -24,7 +24,7 @@ export default function Topbar () {
             </Ul>
             <MenuDiv visible={isOpenMenu}>
                 <MenuContainer>
-                    <CategoriesNavBarList isMenu={true}/>
+                    <CategoriesNavBarList isMenu={true} setIsOpenMenu={setIsOpenMenu}/> 
                 </MenuContainer>
             </MenuDiv>
         </Header>

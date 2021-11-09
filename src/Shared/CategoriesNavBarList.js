@@ -1,30 +1,31 @@
 import { Link } from "react-router-dom"
 import styled from "styled-components";
-export default function CategoriesNavBarlist ({isMenu}) {
-    
+
+export default function CategoriesNavBarlist({ isMenu, setIsOpenMenu }) {
+
     return (
         <>
             {isMenu ?
                 <>
-                <Link to="/store">Store</Link>
+                <Link onClick={() => setIsOpenMenu(false)} to="/">Store</Link>
                 <HorizontalSeparator />
-                <Link to="/mac">Mac</Link>
+                <Link onClick={() => setIsOpenMenu(false)} to="/mac">Mac</Link>
                 <HorizontalSeparator />
-                <Link to="/iPad">iPad</Link>
+                <Link onClick={() => setIsOpenMenu(false)} to="/iPad">iPad</Link>
                 <HorizontalSeparator />
-                <Link to="/iPhone">iPhone</Link>
+                <Link onClick={() => setIsOpenMenu(false)} to="/iPhone">iPhone</Link>
                 <HorizontalSeparator />
-                <Link to="/Watch">Watch</Link>
+                <Link onClick={() => setIsOpenMenu(false)} to="/Watch">Watch</Link>
                 <HorizontalSeparator />
-                <Link to="/AirPods">AirPods</Link>
+                <Link onClick={() => setIsOpenMenu(false)} to="/AirPods">AirPods</Link>
                 <HorizontalSeparator />
-                <Link to="/TV&Casa">TV & Casa</Link>
+                <Link onClick={() => setIsOpenMenu(false)} to="/TV&Casa">TV & Casa</Link>
                 <HorizontalSeparator />
-                <Link to="/Exclusivo-Apple">Exclusivo Apple</Link>
+                <Link onClick={() => setIsOpenMenu(false)} to="/Exclusivo-Apple">Exclusivo Apple</Link>
                 <HorizontalSeparator />
-                <Link to="/Acessórios">Acessórios</Link>
+                <Link onClick={() => setIsOpenMenu(false)} to="/Acessórios">Acessórios</Link>
                 <HorizontalSeparator />
-                <Link to="/Suporte">Suporte</Link>
+                <Link onClick={() => setIsOpenMenu(false)} to="/Suporte">Suporte</Link>
                 <HorizontalSeparator />
                 </>
                 :
