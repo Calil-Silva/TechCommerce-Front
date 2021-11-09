@@ -38,6 +38,10 @@ const Container = styled.div`
   :hover {
     background-color: hsl(201, 89%, 54%);
   }
+
+  li {
+    color: #fff;
+  }
 `;
 
 const Check = styled(BsCheck)`

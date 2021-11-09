@@ -181,7 +181,7 @@ const Body = styled.div`
 
 const HeaderContainer = styled.div`
   height: 3.5rem;
-  width: 100vw;
+  width: 100%;
   border-bottom: 1px solid rgb(231, 231, 231);
 `;
 
@@ -243,7 +243,7 @@ const SubTitle = styled.div`
 `;
 
 const OuterDiv = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100%;
 `;
 
@@ -312,7 +312,7 @@ const LocationSection = styled.div`
 `;
 
 const CountriesContainer = styled.div`
-  width: 100vw;
+  width: 100%;
   height: 100%;
   display: flex;
   justify-content: center;
