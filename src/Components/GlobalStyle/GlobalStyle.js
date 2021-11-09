@@ -1,4 +1,4 @@
-import { createGlobalStyle } from 'styled-components';
+import { createGlobalStyle } from "styled-components";
 const GlobalStyle = createGlobalStyle`
     * {
         box-sizing: border-box;
@@ -72,16 +72,14 @@ const GlobalStyle = createGlobalStyle`
         font-size: 19.98px;
         color: #DBDBDB;  
     }
-
-    ol, ul {
-         font-size: 19.98px;
-         color: #DBDBDB;  
-     }
-
     a {
-         text-decoration: none;
-         border: none;
-     }
+        text-decoration: none;
+        border: none;
+        color: #FFFFFF;
+    }
+
+    /* Chamada font 
+    font-family: 'Source Sans Pro', sans-serif; */
 `;
 
 export default GlobalStyle;
