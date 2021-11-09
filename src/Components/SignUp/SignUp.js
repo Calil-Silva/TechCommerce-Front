@@ -49,11 +49,15 @@ export default function SignUp() {
     postSignup(userData)
       .then((res) => {
         alert(res.data.message);
-        history.push("/signup");
+        history.push("/signin");
       })
       .catch((err) => {
-        alert(err.response.data.message);
-        setDisableSubmit(true);
+        setDisableSubmit(false);
+        if (err.response.status === 406) {
+          alert("Preencha o formulaŕio corretamente");
+        } else {
+          alert("Ocorreu um erro inesperado, tente novamente mais tarde");
+        }
       });
   }
 
