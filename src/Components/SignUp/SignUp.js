@@ -110,6 +110,7 @@ export default function SignUp() {
                 type="text"
                 onFocus={() => setOpenCantries(true)}
                 value={selectedCountry}
+                onChange={() => null}
               />
               <span>Data de nascimento</span>
               <input
