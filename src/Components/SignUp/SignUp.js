@@ -181,7 +181,6 @@ export default function SignUp() {
 
 const Body = styled.div`
   position: relative;
-  top: 44px;
 `;
 
 const HeaderContainer = styled.div`
@@ -318,7 +317,7 @@ const LocationSection = styled.div`
 
 const CountriesContainer = styled.div`
   width: 100%;
-  height: 100%;
+  height: calc(100vh - 44px);
   display: flex;
   justify-content: center;
 `;
@@ -327,7 +326,7 @@ const CounstriesList = styled.ul`
   display: ${({ openContries }) => (!openContries ? "none" : "initial")};
   width: calc(100vw - 2rem);
   max-width: 25rem;
-  height: calc(100% - 1rem);
+  height: calc(100vh - 1rem - 44px);
   background-color: yellow;
   position: absolute;
   top: 0;
