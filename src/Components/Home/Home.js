@@ -1,18 +1,14 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { getCategoriesListRequest } from "../../Services/TechCommer";
 import { Container, Figure, Footer, ImageCategorie, Main } from "./HomeStyled";
 
 export default function Home () {
 
     const [categories, setCategories] = useState("");
-    const gripS = ["1/1", "1/2", "2/2", "2/2", "3/3", "3/3"];
 
-    useEffect(() => {
-        renderCategories();
-    }, [])
-
-    function renderCategories () {
-
+    const gripS = useMemo(() => ["1/1", "1/2", "2/2", "2/2", "3/3", "3/3"], []);
+    
+    const renderCategories = useCallback(() => {
         getCategoriesListRequest()
             .then((res) => {
                 setCategories(res.data.map((category, index) => ({...category, "value":gripS[index]})));
@@ -21,16 +17,21 @@ export default function Home () {
 
                 console.log(error);
             })
-    }
+    }, [gripS]);
+
+    useEffect(() => {
+        renderCategories();
+    }, [renderCategories]);
+
     if (!categories) {
         return "";
     }
     return (
         <Container>
             <Main>
-                {categories.map((category) => {
+                {categories.map((category, index) => {
                     return (
-                        <Figure to={category.name} value={category.value}>
+                        <Figure key={index} to={category.name} value={category.value}>
                             <figcaption>{category.name}</figcaption>
                             <ImageCategorie src={category.url_image}/>
                         </Figure>
