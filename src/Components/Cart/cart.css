@@ -1,0 +1,6 @@
+.tippy-tooltip {
+    border-radius: 20px;
+    height: 20rem;
+    width: 17rem;
+    border: 1px solid hsla(0, 0%, 75%, 1);
+}

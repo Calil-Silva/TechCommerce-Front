@@ -15,7 +15,6 @@ export default function App() {
       <BrowserRouter>
         {/* {userData ? <Topbar /> : ""} */}
         <Topbar />
-        <Cart />
         <Switch>
           <Route path="/" component={Home} exact />
           <Route path="/signin" component={SigninPage} exact />
