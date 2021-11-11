@@ -4,18 +4,18 @@ import styled from "styled-components";
 export default function CountriesList(props) {
   const {
     country,
-    openContries,
-    setOpenCantries,
+    countries,
+    setCountries,
     setSelectedCountry,
     selectedCountry,
   } = props;
 
   function handleCountriesListStatus(e) {
-    if (!openContries) {
-      setOpenCantries(true);
+    if (!countries) {
+      setCountries(true);
     } else {
       setSelectedCountry(e.target.innerText);
-      setOpenCantries(false);
+      setCountries(false);
     }
   }
 

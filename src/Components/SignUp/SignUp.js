@@ -10,9 +10,10 @@ import {
   comparePasswords,
   validEmail,
 } from "../../schemas/userValidations";
+import { useAlert } from "react-alert";
 
 export default function SignUp() {
-  const [openContries, setOpenCantries] = useState(false);
+  const [countries, setCountries] = useState(false);
   const [selectedCountry, setSelectedCountry] = useState("");
   const [birthDate, setBirthDate] = useState("");
   const [name, setName] = useState("");
@@ -56,7 +57,7 @@ export default function SignUp() {
         if (err.response.status === 406) {
           alert("Preencha o formulaŕio corretamente");
         } else {
-          alert("Ocorreu um erro inesperado, tente novamente mais tarde");
+          alert(err.response.data.message);
         }
       });
   }
@@ -108,7 +109,7 @@ export default function SignUp() {
               <input
                 placeholder="País"
                 type="text"
-                onFocus={() => setOpenCantries(true)}
+                onFocus={() => setCountries(true)}
                 value={selectedCountry}
                 onChange={() => null}
               />
@@ -148,10 +149,10 @@ export default function SignUp() {
         <SubmitSection>
           <SiHandshake style={{ fontSize: "3rem" }} />
           <span>
-            As informações do seu ID Apple são usadas para permitir que você
-            inicie sessão de forma segura e acesse seus dados. A Apple registra
-            determinados dados de uso para fins de segurança, suporte e geração
-            de relatórios. Veja como os seus dados são gerenciados.
+            As informações do seu ID TechCommerce são usadas para permitir que
+            você inicie sessão de forma segura e acesse seus dados. A
+            TechCommerce registra determinados dados de uso para fins de
+            segurança, suporte e geração de relatórios.
           </span>
           <input
             type="submit"
@@ -161,15 +162,15 @@ export default function SignUp() {
           />
         </SubmitSection>
         <CountriesContainer>
-          <CounstriesList openContries={openContries}>
+          <CounstriesList countries={countries}>
             {country_arr.map((country, index) => (
               <CountriesList
                 country={country}
                 key={index}
-                openContries={openContries}
+                countries={countries}
                 selectedCountry={selectedCountry}
                 setSelectedCountry={setSelectedCountry}
-                setOpenCantries={setOpenCantries}
+                setCountries={setCountries}
               />
             ))}
           </CounstriesList>
@@ -317,20 +318,19 @@ const LocationSection = styled.div`
 
 const CountriesContainer = styled.div`
   width: 100%;
-  height: calc(100vh - 44px);
+  height: calc(100% - 44px);
   display: flex;
   justify-content: center;
 `;
 
 const CounstriesList = styled.ul`
-  display: ${({ openContries }) => (!openContries ? "none" : "initial")};
+  display: ${({ countries }) => (!countries ? "none" : "initial")};
   width: calc(100vw - 2rem);
   max-width: 25rem;
   height: calc(100vh - 1rem - 44px);
   background-color: yellow;
   position: absolute;
   top: 0;
-  bottom: 0;
   margin: 0.5rem auto;
   background-color: rgba(51, 51, 51, 80%);
   border-radius: 8px;

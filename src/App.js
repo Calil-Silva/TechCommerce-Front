@@ -16,7 +16,7 @@ export default function App() {
         {/* {userData ? <Topbar /> : ""} */}
         <Topbar />
         <Switch>
-          <Route path="/" component={Home}exact />
+          <Route path="/" component={Home} exact />
           <Route path="/signin" component={SigninPage} exact />
           <Route path="/signup" component={SignUp} exact />
         </Switch>
