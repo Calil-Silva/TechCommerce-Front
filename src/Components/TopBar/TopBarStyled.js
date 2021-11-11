@@ -135,6 +135,29 @@ const IconCloseMenu = styled(IoCloseSharp)`
   }
 `;
 
+const IconsToolTipWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+`;
+
+const PurchasesAmount = styled.div`
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  background-color: #fff;
+  font-size: 12px;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  color: #000;
+  display: ${({ displayPurchasesAmount }) =>
+    displayPurchasesAmount ? "flex" : "none"};
+  justify-content: center;
+  align-items: center;
+`;
+
 export {
   IconOpenMenu,
   IconCloseMenu,
@@ -147,4 +170,6 @@ export {
   menuAnimationClose,
   Header,
   Ul,
+  PurchasesAmount,
+  IconsToolTipWrapper,
 };

@@ -32,14 +32,14 @@ export default function SigninPage() {
     setDisableSubmit(true);
 
     if (!validateEmail(email)) {
-       setSendStatus(true);
+      setSendStatus(true);
     }
 
     postLogin(userData)
       .then((res) => {
         storeUserDAta(res.data);
         setDisableSubmit(false);
-        history.push('/home')
+        history.push("/home");
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -164,7 +164,7 @@ const Submit = styled.input`
 
   :hover {
     background-color: ${({ disableSubmit }) =>
-    disableSubmit ? "hsl(242, 60%, 80%)" : "hsl(242, 60%, 69%)"};
+      disableSubmit ? "hsl(242, 60%, 80%)" : "hsl(242, 60%, 69%)"};
     box-shadow: 0 0 1em red;
     cursor: pointer;
   }
