@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { BsBag, BsPersonCircle } from "react-icons/bs";
-import { BrowserRouter, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import CheckoutContext from "../../Contexts/CheckoutContext";
 import { useContext } from "react";
 
@@ -9,20 +9,16 @@ export default function Cart() {
 
   return (
     <>
-      <Container>
-        <Header>Sua sacola está vazia</Header>
-        <Submit>Finalizar</Submit>
-        <BrowserRouter>
-          <Divider to="/">
-            <IconBag />
-            <span>Sacola</span>
-          </Divider>
-          <Divider to="/signin">
-            <Signin />
-            <span>Entrar</span>
-          </Divider>
-        </BrowserRouter>
-      </Container>
+      <Header>Sua sacola está vazia</Header>
+      <Submit>Finalizar</Submit>
+      <Divider to="/">
+        <IconBag />
+        <span>Sacola</span>
+      </Divider>
+      <Divider to="/signin">
+        <Signin />
+        <span>Entrar</span>
+      </Divider>
     </>
   );
 }

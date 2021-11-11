@@ -48,6 +48,7 @@ export default function Topbar() {
           theme="light"
           html={<Cart />}
           distance="18"
+          position="bottom"
         >
           <IconsToolTipWrapper>
             <IconBag />
