@@ -26,6 +26,9 @@ const menuAnimationClose = keyframes`
 `;
 
 const MenuDiv = styled.div`
+  background-color: rgba(0, 0, 0, 0.9);
+  overflow: hidden;
+  z-index: 5;
   position: fixed;
   display: flex;
   justify-content: center;

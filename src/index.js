@@ -1,4 +1,11 @@
-import ReactDOM from 'react-dom'
-import App from './App'
+import ReactDOM from "react-dom";
+import App from "./App";
+import { Provider as AlertProvider } from "react-alert";
 
-ReactDOM.render(<App/>, document.querySelector('.root'));
+const Root = () => (
+  <AlertProvider>
+    <App />
+  </AlertProvider>
+);
+
+ReactDOM.render(<Root />, document.querySelector(".root"));
