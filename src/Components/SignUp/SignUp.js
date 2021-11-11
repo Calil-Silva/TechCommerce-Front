@@ -10,7 +10,6 @@ import {
   comparePasswords,
   validEmail,
 } from "../../schemas/userValidations";
-import { useAlert } from "react-alert";
 
 export default function SignUp() {
   const [countries, setCountries] = useState(false);
