@@ -9,8 +9,9 @@ import {
   storeOrderData,
 } from "../../Services/orderPersistence";
 
-export default function Cart() {
+export default function Cart({ isOpenBag }) {
   const { purchases, setPurchases } = useContext(CheckoutContext);
+  console.log(purchases.length);
 
   const removeIt = (p) => {
     setPurchases(purchases.filter((e, i) => i !== p));
@@ -19,7 +20,7 @@ export default function Cart() {
   };
 
   return (
-    <>
+    <ToolTipBag isOpenBag={isOpenBag}>
       <Header purchases={purchases.length}>Sua sacola está vazia</Header>
       {purchases.map((p, i) => {
         return (
@@ -41,7 +42,7 @@ export default function Cart() {
         <Signin />
         <span>Entrar</span>
       </Divider>
-    </>
+    </ToolTipBag>
   );
 }
 
@@ -52,10 +53,10 @@ const PatternItems = css`
   &:not(:last-of-type) {
     border-bottom: 1px solid hsla(0, 0%, 75%, 1);
   }
+  font-size: 1rem;
   span {
     color: hsla(260, 100%, 68%, 1);
   }
-  position: relative;
 `;
 
 const PatternIcons = css`
@@ -66,16 +67,23 @@ const PatternIcons = css`
 `;
 
 const Header = styled.h1`
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   margin: 3rem 0;
+  text-align: center;
   display: ${({ purchases }) => (purchases > 0 ? "none" : "inherit")};
 `;
 
 const AllPurchases = styled.div`
   ${PatternItems}
+  position: relative;
   img {
-    height: 4rem;
+    height: 3rem;
     width: 3rem;
+  }
+
+  span {
+    font-size: 0.9rem;
+    color: black;
   }
 `;
 
@@ -86,14 +94,15 @@ const Divider = styled(Link)`
 const Submit = styled(Link)`
   background-color: hsla(260, 100%, 68%, 1);
   color: #fff;
-  height: 2rem;
+  height: 2.3rem;
   width: 100%;
   border-radius: 7px;
   font-size: 1rem;
   margin-bottom: 0.2rem;
-  display: ${({ purchases }) => (purchases > 0 ? "inherit" : "none")};
+  display: ${(props) => (props.purchases > 0 ? "flex" : "none")};
   cursor: pointer;
-  padding: 0.5rem;
+  justify-content: center;
+  align-items: center;
 `;
 
 const IconBag = styled(BsBag)`
@@ -106,9 +115,35 @@ const Signin = styled(BsPersonCircle)`
 
 const RemoveItem = styled(IoClose)`
   font-size: 15px;
-  position: absolute;
   top: 10px;
   right: 10px;
   cursor: pointer;
   font-weight: 700;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background-color: red;
+  border-radius: 100%;
+  color: #fff;
+`;
+
+const ToolTipBag = styled.div`
+  border-radius: 20px;
+  width: 17rem;
+  border: 1px solid hsla(0, 0%, 75%, 1);
+  overflow-y: scroll;
+  background: #fff;
+  padding: 0.5rem 1rem;
+  position: fixed;
+  top: 6vh;
+  right: 8vw;
+  display: ${({ isOpenBag }) => (isOpenBag ? "initial" : "none")};
+
+  @media (max-width: 834px) {
+    width: 100vw;
+    position: absolute;
+    margin-top: 20rem;
+    border-radius: 0;
+    background-color: red;
+  }
 `;

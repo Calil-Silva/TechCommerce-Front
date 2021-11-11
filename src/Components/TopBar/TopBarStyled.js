@@ -106,6 +106,13 @@ const IconBag = styled(BsBag)`
   width: 18px;
   height: 18px;
   color: rgba(255, 255, 255, 0.8);
+  ::selection {
+    user-select: none;
+  }
+
+  :hover {
+    cursor: pointer;
+  }
 
   @media (max-width: 834px) {
     width: 20px;
@@ -142,6 +149,7 @@ const IconsToolTipWrapper = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
   position: relative;
 `;
 
@@ -159,6 +167,11 @@ const PurchasesAmount = styled.div`
     displayPurchasesAmount ? "flex" : "none"};
   justify-content: center;
   align-items: center;
+  user-select: none;
+
+  :hover {
+    cursor: pointer;
+  }
 `;
 
 export {

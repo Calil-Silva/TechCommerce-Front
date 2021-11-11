@@ -8,7 +8,10 @@ export default function Product() {
   const { purchases, setPurchases } = useContext(CheckoutContext);
 
   const orderProduct = () => {
-    setPurchases([...purchases, { name: "Super Saiyan Iphone", img: iphone }]);
+    setPurchases([
+      ...purchases,
+      { name: "Super Saiyan Iphone testetesteteste teste", img: iphone },
+    ]);
     storeOrderData(purchases);
   };
 
@@ -20,7 +23,7 @@ export default function Product() {
     <>
       <Container>
         <div>
-          <h1>Super Saiyan Iphone</h1>
+          <h1>Super Saiyan Iphone testetesteteste teste</h1>
           <img src={iphone} alt="iphone 13"></img>
         </div>
         <Close onClick={() => orderProduct()}>
