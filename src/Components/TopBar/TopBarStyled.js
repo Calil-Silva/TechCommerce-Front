@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { keyframes } from "styled-components";
 import { AiFillApple, AiOutlineSearch } from "react-icons/ai";
-import { BsBag } from "react-icons/bs";
+import { BsBag, BsTriangleFill } from "react-icons/bs";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { IoCloseSharp } from "react-icons/io5";
 
@@ -63,6 +63,7 @@ const Header = styled.header`
     visible ? "rgba(0, 0, 0, 1);" : "rgba(0, 0, 0, 0.8)"};
   transition: background-color 0.5s ease-in;
   z-index: 5;
+  top: 0;
 `;
 
 const Ul = styled.ul`
@@ -174,6 +175,47 @@ const PurchasesAmount = styled.div`
   }
 `;
 
+const CartWrapper = styled.div`
+  display: ${({ isOpenBag }) => (isOpenBag ? "inherit" : "none")};
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  top: 35px;
+  width: 500px;
+  margin-right: 1px;
+
+  @media (max-width: 834px) {
+    width: 100%;
+    align-items: flex-end;
+  }
+`;
+
+const ArrowBag = styled(BsTriangleFill)`
+  font-size: 20px;
+  color: #fff;
+  position: absolute;
+  top: 25px;
+  right: 0px;
+  z-index: 1000;
+  display: ${({ isOpenBag }) => (isOpenBag ? "initial" : "none")};
+
+  @media (max-width: 834px) {
+    right: 15px;
+  }
+`;
+
+const CartBackground = styled.div`
+  background-color: rgba(0, 0, 0, 0.7);
+  height: 40rem;
+  width: 100vw;
+  display: none;
+
+  @media (max-width: 834px) {
+    display: initial;
+  }
+`;
+
 export {
   IconOpenMenu,
   IconCloseMenu,
@@ -188,4 +230,7 @@ export {
   Ul,
   PurchasesAmount,
   IconsToolTipWrapper,
+  CartWrapper,
+  ArrowBag,
+  CartBackground,
 };

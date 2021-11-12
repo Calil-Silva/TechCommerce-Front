@@ -6,12 +6,15 @@ import { storeUserDAta } from "../../Services/loginPersistence";
 import { postLogin } from "../../Services/TechCommer";
 import { handleEmailAlert, handlePasswordAlert } from "../../factories/alerts";
 import { useHistory } from "react-router-dom";
+import CheckoutContext from "../../Contexts/CheckoutContext";
+import { useContext } from "react";
 
 export default function SigninPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [sendStatus, setSendStatus] = useState(false);
   const [disableSubmit, setDisableSubmit] = useState(false);
+  const { setIsOpenBag } = useContext(CheckoutContext);
   const history = useHistory();
 
   const userData = {
@@ -48,7 +51,7 @@ export default function SigninPage() {
   };
 
   return (
-    <>
+    <div onClick={() => setIsOpenBag(false)}>
       <FormContainer>
         <Form>
           <Header>Por gentileza, insira seus dados nos campos abaixo.</Header>
@@ -95,7 +98,7 @@ export default function SigninPage() {
         ))}
       </Links>
       <Info>{ref}</Info>
-    </>
+    </div>
   );
 }
 

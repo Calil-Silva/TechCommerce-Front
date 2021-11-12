@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components/macro";
-import { BsBag, BsPersonCircle } from "react-icons/bs";
+import { BsBag, BsPersonCircle, BsFillPersonXFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import CheckoutContext from "../../Contexts/CheckoutContext";
 import { useContext } from "react";
@@ -8,26 +8,58 @@ import {
   removeOrderData,
   storeOrderData,
 } from "../../Services/orderPersistence";
+import { removeUserData } from "../../Services/loginPersistence";
+import { useHistory } from "react-router";
 
-export default function Cart({ isOpenBag }) {
+export default function Cart({ isOpenBag, userData }) {
   const { purchases, setPurchases } = useContext(CheckoutContext);
-  console.log(purchases.length);
+  const history = useHistory();
 
-  const removeIt = (p) => {
-    setPurchases(purchases.filter((e, i) => i !== p));
+  const difItemsOrder = () => {
+    let difItemsArr = [...new Set(purchases.map((p) => p.name))];
+    let difItemsArrObj = [];
+    let amount = 0;
+    for (let i = 0; i < difItemsArr.length; i++) {
+      for (let j = 0; j < purchases.length; j++) {
+        if (difItemsArr[i] === purchases[i].name) {
+          amount++;
+        }
+      }
+      difItemsArrObj.push({
+        name: difItemsArr[i],
+        amount,
+        img: purchases.find((purchase) => purchase.name === difItemsArr[i]).img,
+      });
+    }
+    return difItemsArrObj;
+  };
+
+  console.log(difItemsOrder());
+
+  const removeItem = (event, index) => {
+    event.stopPropagation();
+    setPurchases(purchases.filter((_, i) => i !== index));
     removeOrderData();
     storeOrderData(purchases);
+  };
+
+  const SigOut = () => {
+    removeUserData();
+    history.push("/");
   };
 
   return (
     <ToolTipBag isOpenBag={isOpenBag}>
       <Header purchases={purchases.length}>Sua sacola está vazia</Header>
-      {purchases.map((p, i) => {
+      {difItemsOrder().map((p, i) => {
         return (
           <AllPurchases>
             <img src={p.img} alt="" />
-            <span>{p.name}</span>
-            <RemoveItem onClick={() => removeIt(i)} />
+            <div>
+              <span>{p.name}</span>
+              <span>x{p.amount}</span>
+            </div>
+            <Remove onClick={(e) => removeItem(e, i)} />
           </AllPurchases>
         );
       })}
@@ -42,6 +74,10 @@ export default function Cart({ isOpenBag }) {
         <Signin />
         <span>Entrar</span>
       </Divider>
+      <Divider to="/" userData={userData} onClick={SigOut}>
+        <Signout />
+        <span>Sair</span>
+      </Divider>
     </ToolTipBag>
   );
 }
@@ -50,12 +86,22 @@ const PatternItems = css`
   padding: 1rem 0;
   display: flex;
   align-items: center;
+  font-size: 1rem;
+
   &:not(:last-of-type) {
     border-bottom: 1px solid hsla(0, 0%, 75%, 1);
   }
-  font-size: 1rem;
+
+  &:nth-last-child(2) {
+    border-bottom: ${({ userData }) => (userData ? "initial" : "none")};
+  }
+
   span {
     color: hsla(260, 100%, 68%, 1);
+  }
+
+  @media (max-width: 834px) {
+    padding: 1rem;
   }
 `;
 
@@ -81,14 +127,27 @@ const AllPurchases = styled.div`
     width: 3rem;
   }
 
+  div {
+    display: flex;
+    flex-direction: column;
+  }
+
   span {
     font-size: 0.9rem;
     color: black;
+
+    &:last-child {
+      color: hsla(0, 0%, 55%, 1);
+    }
   }
 `;
 
 const Divider = styled(Link)`
   ${PatternItems}
+
+  &:last-child {
+    display: ${({ userData }) => (userData ? "" : "none")};
+  }
 `;
 
 const Submit = styled(Link)`
@@ -113,17 +172,21 @@ const Signin = styled(BsPersonCircle)`
   ${PatternIcons}
 `;
 
-const RemoveItem = styled(IoClose)`
+const Signout = styled(BsFillPersonXFill)`
+  ${PatternIcons}
+`;
+
+const Remove = styled(IoClose)`
   font-size: 15px;
   top: 10px;
   right: 10px;
   cursor: pointer;
   font-weight: 700;
   position: absolute;
-  top: 20px;
+  top: 8px;
   right: 20px;
   background-color: red;
-  border-radius: 100%;
+  border-radius: 5px;
   color: #fff;
 `;
 
@@ -134,19 +197,23 @@ const ToolTipBag = styled.div`
   overflow-y: scroll;
   background: #fff;
   padding: 0.5rem 1rem;
-  position: fixed;
-  top: 6vh;
-  right: 8vw;
+  position: sticky;
+  right: 0;
   display: ${({ isOpenBag }) => (isOpenBag ? "initial" : "none")};
+  ::-webkit-scrollbar {
+    display: none;
+  }
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  z-index: 100;
 
   @media (max-width: 834px) {
-    position: inherit;
-    position: absolute;
     width: 100vw;
-    right: 0;
-    top: 30px;
-    border: none;
-    padding: 1rem 1rem;
     border-radius: 0;
+    border: none;
+    left: 0;
+    /* height: 100vh;
+    background-color: #000; */
+    border-bottom: 1px solid hsla(0, 0%, 75%, 1);
   }
 `;

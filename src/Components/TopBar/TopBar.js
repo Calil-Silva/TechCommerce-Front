@@ -11,6 +11,9 @@ import {
   MenuContainer,
   PurchasesAmount,
   IconsToolTipWrapper,
+  CartWrapper,
+  ArrowBag,
+  CartBackground,
 } from "./TopBarStyled";
 import CategoriesNavBarList from "../../Shared/CategoriesNavBarList";
 import { useHistory } from "react-router";
@@ -18,17 +21,21 @@ import "react-tippy/dist/tippy.css";
 import Cart from "../Cart/Cart";
 import CheckoutContext from "../../Contexts/CheckoutContext";
 import { useContext } from "react";
+import UserContext from "../../Contexts/UserContext";
 
 export default function Topbar() {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const history = useHistory();
-  const { purchases } = useContext(CheckoutContext);
+  const { purchases, isOpenBag, setIsOpenBag } = useContext(CheckoutContext);
   const purchasesAmount = purchases.length;
   const displayPurchasesAmount = purchasesAmount > 0 && true;
-  const [isOpenBag, setIsOpenBag] = useState(false);
+  const { userData } = useContext(UserContext);
 
   return (
-    <Header visible={isOpenMenu}>
+    <Header
+      visible={isOpenMenu}
+      onClick={() => isOpenBag && setIsOpenBag(false)}
+    >
       <Ul>
         {isOpenMenu ? (
           <IconCloseMenu onClick={() => setIsOpenMenu(!isOpenMenu)} />
@@ -38,12 +45,18 @@ export default function Topbar() {
         <IconApple onClick={() => history.push("/")} />
         <CategoriesNavBarList />
         <IconSearch />
-        <IconsToolTipWrapper onClick={() => setIsOpenBag(!isOpenBag)}>
-          <IconBag />
-          <PurchasesAmount displayPurchasesAmount={displayPurchasesAmount}>
-            {purchasesAmount}
-          </PurchasesAmount>
-          <Cart isOpenBag={isOpenBag} />
+        <IconsToolTipWrapper>
+          <div onClick={() => setIsOpenBag(!isOpenBag)}>
+            <IconBag />
+            <PurchasesAmount displayPurchasesAmount={displayPurchasesAmount}>
+              {purchasesAmount}
+            </PurchasesAmount>
+            <ArrowBag isOpenBag={isOpenBag} />
+          </div>
+          <CartWrapper isOpenBag={isOpenBag}>
+            <Cart isOpenBag={isOpenBag} userData={userData} />
+            <CartBackground />
+          </CartWrapper>
         </IconsToolTipWrapper>
       </Ul>
       <MenuDiv visible={isOpenMenu}>
