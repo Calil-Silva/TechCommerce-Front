@@ -3,7 +3,7 @@ import { keyframes } from "styled-components";
 import { AiFillApple, AiOutlineSearch } from "react-icons/ai";
 import { BsBag } from "react-icons/bs";
 import { HiMenuAlt4 } from "react-icons/hi";
-import { IoCloseSharp } from "react-icons/io5"
+import { IoCloseSharp } from "react-icons/io5";
 
 const menuAnimationOpen = keyframes`
    0% {
@@ -39,15 +39,15 @@ const MenuDiv = styled.div`
 `;
 
 const MenuContainer = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: left;
-    justify-content: left;
-    width: 85%;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: left;
+  width: 85%;
 
-    a {
-        margin: 15px 0;
-    }
+  a {
+    margin: 15px 0;
+  }
 `;
 
 const Header = styled.header`
@@ -60,89 +60,88 @@ const Header = styled.header`
 `;
 
 const Ul = styled.ul`
-    display: flex;
-    height: 100%;
-    align-items: center;
-    justify-content: space-around;
-    font-family: 'Source Sans Pro', sans-serif;
-    font-weight: 400;
-    font-size: 12px;
-    margin: 0 auto;
-    max-width: 996px;
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: space-around;
+  font-family: "Source Sans Pro", sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+  margin: 0 auto;
+  max-width: 996px;
 
-    @media(max-width: 834px){
-        justify-content: space-between;
-    }
+  @media (max-width: 834px) {
+    justify-content: space-between;
+  }
 `;
 
 const IconApple = styled(AiFillApple)`
-    width: 18px;
-    height: 18px;
-    color: rgba(255, 255, 255, 0.8);
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.8);
 
-    @media(max-width: 834px){
-
-        width: 25px;
-        height: 25px;
-    }
+  @media (max-width: 834px) {
+    width: 25px;
+    height: 25px;
+  }
 `;
 
 const IconSearch = styled(AiOutlineSearch)`
-    width: 18px;
-    height: 18px;
-    color: rgba(255, 255, 255, 0.8);
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.8);
 
-    @media(max-width: 834px){
-        display: none
-    }
-`
+  @media (max-width: 834px) {
+    display: none;
+  }
+`;
 
 const IconBag = styled(BsBag)`
-    width: 18px;
-    height: 18px;
-    color: rgba(255, 255, 255, 0.8);
+  width: 18px;
+  height: 18px;
+  color: rgba(255, 255, 255, 0.8);
 
-    @media(max-width: 834px){
-        width: 20px;
-        height: 20px;
-        margin-right: 15px;
-    }
-`
+  @media (max-width: 834px) {
+    width: 20px;
+    height: 20px;
+    margin-right: 15px;
+  }
+`;
 
 const IconOpenMenu = styled(HiMenuAlt4)`
-    width: 25px;
-    height: 25px;
-    color: rgba(255, 255, 255, 0.8);
-    display: none;
+  width: 25px;
+  height: 25px;
+  color: rgba(255, 255, 255, 0.8);
+  display: none;
 
-    @media(max-width: 834px){
-        display: block;
-        margin-left: 15px;
-    }
+  @media (max-width: 834px) {
+    display: block;
+    margin-left: 15px;
+  }
 `;
 
 const IconCloseMenu = styled(IoCloseSharp)`
-    width: 25px;
-    height: 25px;
-    color: rgba(255, 255, 255, 0.8);
-    display: none;
+  width: 25px;
+  height: 25px;
+  color: rgba(255, 255, 255, 0.8);
+  display: none;
 
-    @media(max-width: 834px){
-        display: block;
-        margin-left: 15px;
-    }
+  @media (max-width: 834px) {
+    display: block;
+    margin-left: 15px;
+  }
 `;
 
 export {
-    IconOpenMenu,
-    IconCloseMenu,
-    IconSearch,
-    IconApple,
-    IconBag,
-    MenuDiv,
-    MenuContainer,
-    menuAnimationOpen,
-    menuAnimationClose,
-    Header,
-    Ul,
-}
+  IconOpenMenu,
+  IconCloseMenu,
+  IconSearch,
+  IconApple,
+  IconBag,
+  MenuDiv,
+  MenuContainer,
+  menuAnimationOpen,
+  menuAnimationClose,
+  Header,
+  Ul,
+};

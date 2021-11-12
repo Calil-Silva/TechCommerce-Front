@@ -9,6 +9,10 @@ function returnCategoryID(categoryName) {
 export function postLogin(userData) {
   return axios.post(`${URL}/signin`, userData);
 }
+
+export function postSignup(userData) {
+  return axios.post(`${URL}/signup`, userData);
+}
 export function getCategoriesListRequest() {
   return axios.get(`${URL}/categories`);
 }
