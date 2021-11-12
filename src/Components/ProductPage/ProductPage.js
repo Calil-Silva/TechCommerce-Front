@@ -8,6 +8,7 @@ export default function ProductPage() {
     const { categoryName } = useParams();
     const [products, setProducts] = useState(null);
     const renderProducts = useCallback(() => {
+        setProducts(null);
         getProductsCategoryRequest(categoryName)
             .then((res) => {
                 setProducts(res.data);
@@ -18,10 +19,10 @@ export default function ProductPage() {
 
     useEffect(() => {
         renderProducts();
-    }, [renderProducts]);
+    }, [renderProducts, categoryName]);
 
     if (!products) {
-        return "";
+        return "LOADING";
     }
     return (
         <PromoDiv>
@@ -100,7 +101,6 @@ const ProductDiv = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-top: 50px;
 
     .new{
         color: #BF4800;
