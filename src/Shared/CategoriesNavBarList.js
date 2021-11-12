@@ -9,7 +9,7 @@ export default function CategoriesNavBarlist({ isMenu, setIsOpenMenu }) {
                 <>
                 <Link onClick={() => setIsOpenMenu(false)} to="/">Store</Link>
                 <HorizontalSeparator />
-                <Link onClick={() => setIsOpenMenu(false)} to="/mac">Mac</Link>
+                <Link onClick={() => setIsOpenMenu(false)} to="/Mac">Mac</Link>
                 <HorizontalSeparator />
                 <Link onClick={() => setIsOpenMenu(false)} to="/iPad">iPad</Link>
                 <HorizontalSeparator />
@@ -30,7 +30,7 @@ export default function CategoriesNavBarlist({ isMenu, setIsOpenMenu }) {
                 </>
                 :
                 <>
-                <Li><Link to="/store">Store</Link></Li>
+                <Li><Link to="/">Store</Link></Li>
                 <Li><Link to="/Mac">Mac</Link></Li>
                 <Li><Link to="/iPad">iPad</Link></Li>
                 <Li><Link to="/iPhone">iPhone</Link></Li>

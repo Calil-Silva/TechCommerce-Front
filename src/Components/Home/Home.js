@@ -11,11 +11,9 @@ export default function Home () {
     const renderCategories = useCallback(() => {
         getCategoriesListRequest()
             .then((res) => {
-                setCategories(res.data.map((category, index) => ({...category, "value":gripS[index]})));
+                setCategories(res.data.map((category, index) => ({ ...category, "value": gripS[index] })));
             })
             .catch((error) => {
-
-                console.log(error);
             })
     }, [gripS]);
 
@@ -31,7 +29,7 @@ export default function Home () {
             <Main>
                 {categories.map((category, index) => {
                     return (
-                        <Figure key={index} to={category.name} value={category.value}>
+                        <Figure key={index} to={`${category.name}`} value={category.value}>
                             <figcaption>{category.name}</figcaption>
                             <ImageCategorie src={category.url_image}/>
                         </Figure>
