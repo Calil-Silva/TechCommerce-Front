@@ -64,7 +64,6 @@ const ContainerCardDescriptionDiv = styled.div`
     height: 371px;
     width: 20%;
     margin-bottom: 50px;
-    /* background-color: red; */
 
     @media(max-width: 834px){
         flex-direction: row;

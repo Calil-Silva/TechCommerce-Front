@@ -1,13 +1,6 @@
 import axios from "axios";
 const URL = "http://localhost:4000";
 
-// function setConfig(token) {
-//   return {
-//     headers: {
-//       Authorization: `Bearer ${token}`,
-//     },
-//   };
-// }
 function returnCategoryID(categoryName) {
   
   const ids = { 'Watch': 1, 'AirPods': 2, 'Mac': 3, 'MacBook':3, 'iPad': 4, 'Ipad': 4, 'iPhone': 5, 'Iphone':5, 'Acessórios': 6, 'Acessories': 6 };
