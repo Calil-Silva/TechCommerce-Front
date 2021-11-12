@@ -16,7 +16,6 @@ import CategoriesNavBarList from "../../Shared/CategoriesNavBarList";
 import { useHistory } from "react-router";
 import "react-tippy/dist/tippy.css";
 import Cart from "../Cart/Cart";
-import "../Cart/cart.css";
 import CheckoutContext from "../../Contexts/CheckoutContext";
 import { useContext } from "react";
 

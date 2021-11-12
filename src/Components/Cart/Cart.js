@@ -140,10 +140,13 @@ const ToolTipBag = styled.div`
   display: ${({ isOpenBag }) => (isOpenBag ? "initial" : "none")};
 
   @media (max-width: 834px) {
-    width: 100vw;
+    position: inherit;
     position: absolute;
-    margin-top: 20rem;
+    width: 100vw;
+    right: 0;
+    top: 30px;
+    border: none;
+    padding: 1rem 1rem;
     border-radius: 0;
-    background-color: red;
   }
 `;
