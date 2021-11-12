@@ -39,7 +39,7 @@ export default function ProductPage() {
                     return <ContainerProduct key={index}>
                         <InfoDiv>
                             <p className="new">New</p>
-                            <p className="name">{product.name.split(' ')[0]}<p className="style">{product.name.split(' ')[1]}</p></p>
+                            <p className="name">{product.name.split(' ')[0]}</p><p className="style">{product.name.split(' ')[1]}</p>
                             <p className="info1">{product.describe.split('|')[0]}</p>
                             <p className="info2">{product.describe.split('|')[1]}</p>
                             <p className="price">from ${product.price}</p>
