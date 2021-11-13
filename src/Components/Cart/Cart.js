@@ -69,7 +69,7 @@ export default function Cart({ isOpenBag }) {
       <Submit purchases={purchases.length} to="/checkout">
         Finalizar
       </Submit>
-      <Divider to="/">
+      <Divider to="/cart">
         <IconBag />
         <span>Sacola</span>
       </Divider>
