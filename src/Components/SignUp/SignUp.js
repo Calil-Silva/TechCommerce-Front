@@ -5,6 +5,8 @@ import { country_arr } from "../../Data/countris";
 import { SiHandshake } from "react-icons/si";
 import CountriesList from "./CountriesList";
 import { postSignup } from "../../Services/TechCommer";
+import { useContext } from "react";
+import CheckoutContext from "../../Contexts/CheckoutContext";
 import {
   validateInputs,
   comparePasswords,
@@ -21,6 +23,7 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const [disableSubmit, setDisableSubmit] = useState(false);
+  const { setIsOpenBag } = useContext(CheckoutContext);
   const userData = {
     name: `${name} ${surname}`,
     selectedCountry,
@@ -62,7 +65,7 @@ export default function SignUp() {
   }
 
   return (
-    <Body>
+    <Body onClick={() => setIsOpenBag(false)}>
       <HeaderContainer>
         <HeaderWrapper>
           <Link to="/">
@@ -181,6 +184,7 @@ export default function SignUp() {
 
 const Body = styled.div`
   position: relative;
+  margin-top: 44px;
 `;
 
 const HeaderContainer = styled.div`
