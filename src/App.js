@@ -5,6 +5,7 @@ import GlobalStyle from "./Components/GlobalStyle/GlobalStyle";
 import SigninPage from "./Components/SignIn/SigninPage";
 import Topbar from "./Components/TopBar/TopBar";
 import Home from "./Components/Home/Home";
+import CheckOut from "./Components/CheckOut/CheckOut";
 
 export default function App() {
   const [userData, setUserData] = useState(null);
@@ -15,9 +16,10 @@ export default function App() {
         {/* {userData ? <Topbar /> : ""} */}
         <Topbar />
         <Switch>
-          <Route path="/" component={Home}exact />
+          <Route path="/" component={Home} exact />
           <Route path="/signin" component={SigninPage} exact />
           <Route path="/signup" exact />
+          <Route path="/checkout" component={CheckOut} exact />
         </Switch>
       </BrowserRouter>
       <GlobalStyle />
