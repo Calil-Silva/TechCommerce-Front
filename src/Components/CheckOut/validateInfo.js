@@ -1,6 +1,7 @@
 import valid from "card-validator";
 
 export default function validateInfo(values) {
+  console.log(values);
   let errors = {};
   let creditCart = valid.number(values.number);
 

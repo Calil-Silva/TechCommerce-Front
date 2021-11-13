@@ -1,6 +1,6 @@
 import { Button, Form, Alert, Row, Col } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import Card from "react-credit-cards";
+import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
 import useForm from "./useForm";
 
@@ -9,13 +9,13 @@ export default function CreditCard() {
   return (
     <div>
       <div>
-        <Card
+        <Cards
           cvc={values.cvc}
-          expirationDate={values.expiry}
+          expiry={values.expirationDate}
           focused={values.focus}
           name={values.name}
           number={values.number}
-        ></Card>
+        />
       </div>
       <Form onSubmit={(e) => handleSubmit(e)}>
         <Form.Group>
@@ -46,10 +46,10 @@ export default function CreditCard() {
           <Col>
             <Form.Group>
               <Form.Control
-                type="date"
-                id="expiration"
+                type="number"
+                id="expirationDate"
                 placeholder="Data de validade"
-                name="expiration"
+                name="expirationDate"
                 values={values.expirationDate}
                 onChange={handleChange}
                 onFocus={handleFocus}
