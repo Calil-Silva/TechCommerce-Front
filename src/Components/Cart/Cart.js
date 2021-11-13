@@ -208,7 +208,8 @@ const ToolTipBag = styled.div`
   -ms-overflow-style: none;
   scrollbar-width: none;
   z-index: 100;
-  height: calc(100vh - 5rem);
+  height: 100%;
+  max-height: calc(100vh - 5rem);
 
   @media (max-width: 834px) {
     width: 100vw;
