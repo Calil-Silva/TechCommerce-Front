@@ -9,18 +9,41 @@ import CheckoutContext from "../../Contexts/CheckoutContext";
 export default function ProductPage() {
   const { categoryName } = useParams();
   const [products, setProducts] = useState(null);
-  const { purchases, setPurchases } = useContext(CheckoutContext);
+  const { purchases, setPurchases, setIsOpenBag } = useContext(CheckoutContext);
   const renderProducts = useCallback(() => {
     setProducts(null);
     getProductsCategoryRequest(categoryName)
       .then((res) => {
-        console.log(res.data);
         setProducts(res.data);
       })
       .catch((error) => {});
   }, [categoryName]);
 
   const orderProduct = (product) => {
+    const hasOrder = purchases.some(({ name }) => name === product.name);
+
+    if (purchases.length > 0 && hasOrder) {
+      const nameProductsArr = purchases
+        .map((p) => p.name)
+        .filter((n) => n === product.name);
+
+      for (let i = 0; i < nameProductsArr.length - 1; i++) {
+        let count = 1;
+        for (let j = 1; j < nameProductsArr.length; j++) {
+          if (nameProductsArr[i] === nameProductsArr[j]) {
+            count++;
+          }
+        }
+        if (count < 3) {
+          setPurchases([...purchases, { ...product }]);
+          storeOrderData(purchases);
+          return;
+        } else {
+          alert("Só é possível comprar 3 unidades de cada produto por cliente");
+          return;
+        }
+      }
+    }
     setPurchases([...purchases, { ...product }]);
     storeOrderData(purchases);
   };
@@ -37,7 +60,7 @@ export default function ProductPage() {
     return "LOADING";
   }
   return (
-    <PromoDiv>
+    <PromoDiv onClick={() => setIsOpenBag(false)}>
       <Typewriter
         options={{
           strings: [

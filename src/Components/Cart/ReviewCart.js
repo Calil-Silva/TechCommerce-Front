@@ -2,9 +2,11 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useContext } from "react";
 import CheckoutContext from "../../Contexts/CheckoutContext";
+import UserContext from "../../Contexts/UserContext";
 
 export default function ReviewCart() {
   const { setIsOpenBag, purchases } = useContext(CheckoutContext);
+  const { userOnline } = useContext(UserContext);
   const links = [
     "Condições de uso",
     "Política de privacidade",
@@ -20,7 +22,7 @@ export default function ReviewCart() {
     for (let i = 0; i < difItemsArr.length; i++) {
       let amount = 0;
       for (let j = 0; j < purchases.length; j++) {
-        if (difItemsArr[i] === purchases[j].name) {
+        if (difItemsArr[i] === purchases[j].name && amount <= 3) {
           amount++;
         }
       }
@@ -47,14 +49,16 @@ export default function ReviewCart() {
             O prazo de entrega dos produtos é de até um dia útil após a
             confirmação do pagamento.
           </SubTitle>
-          <SubTitle>
-            <span>
-              Entre com seu ID TechCommerce para finalizar a compra? &nbsp;
-            </span>
-            <Link to="signin">
-              <span>Entrar</span>
-            </Link>
-          </SubTitle>
+          {!userOnline && (
+            <SubTitle>
+              <span>
+                Entre com seu ID TechCommerce para finalizar a compra? &nbsp;
+              </span>
+              <Link to="signin">
+                <span>Entrar</span>
+              </Link>
+            </SubTitle>
+          )}
         </TitleContainer>
         <OuterDivProducts>
           {purchases.length === 0 ? (

@@ -23,7 +23,7 @@ export default function Cart({ isOpenBag }) {
     for (let i = 0; i < difItemsArr.length; i++) {
       let amount = 0;
       for (let j = 0; j < purchases.length; j++) {
-        if (difItemsArr[i] === purchases[j].name) {
+        if (difItemsArr[i] === purchases[j].name && amount < 3) {
           amount++;
         }
       }
@@ -74,14 +74,14 @@ export default function Cart({ isOpenBag }) {
         <span>Sacola</span>
       </Divider>
       {userOnline ? (
-        <Divider to="/signin">
-          <Signin />
-          <span>Entrar</span>
-        </Divider>
-      ) : (
         <Divider to="/" onClick={() => SigOut()}>
           <Signout />
           <span>Sair</span>
+        </Divider>
+      ) : (
+        <Divider to="/signin">
+          <Signin />
+          <span>Entrar</span>
         </Divider>
       )}
     </ToolTipBag>
@@ -208,14 +208,13 @@ const ToolTipBag = styled.div`
   -ms-overflow-style: none;
   scrollbar-width: none;
   z-index: 100;
+  height: calc(100vh - 5rem);
 
   @media (max-width: 834px) {
     width: 100vw;
     border-radius: 0;
     border: none;
     left: 0;
-    /* height: 100vh;
-    background-color: #000; */
     border-bottom: 1px solid hsla(0, 0%, 75%, 1);
   }
 `;

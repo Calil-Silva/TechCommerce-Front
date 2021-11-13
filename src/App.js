@@ -17,7 +17,7 @@ export default function App() {
   const [userData, setUserData] = useState({ ...localUserData });
   const [purchases, setPurchases] = useState(getOrderData());
   const [isOpenBag, setIsOpenBag] = useState(false);
-  const [userOnline, setUserOnline] = useState(false);
+  const [userOnline, setUserOnline] = useState(localUserData ? true : false);
 
   useEffect(() => {
     setUserData({ ...localUserData });

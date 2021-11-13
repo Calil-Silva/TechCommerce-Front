@@ -1,9 +1,11 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState, useContext } from "react";
 import { getCategoriesListRequest } from "../../Services/TechCommer";
 import { Container, Figure, Footer, ImageCategorie, Main } from "./HomeStyled";
+import CheckoutContext from "../../Contexts/CheckoutContext";
 
 export default function Home() {
   const [categories, setCategories] = useState("");
+  const { setIsOpenBag } = useContext(CheckoutContext);
 
   const gripS = useMemo(() => ["1/1", "1/2", "2/2", "2/2", "3/3", "3/3"], []);
 
@@ -28,7 +30,7 @@ export default function Home() {
     return "";
   }
   return (
-    <Container>
+    <Container onClick={() => setIsOpenBag(false)}>
       <Main>
         {categories.map((category, index) => {
           return (
