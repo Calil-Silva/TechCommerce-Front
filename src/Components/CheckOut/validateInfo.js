@@ -1,18 +1,15 @@
 import valid from "card-validator";
 
 export default function validateInfo(values) {
-  console.log(values);
   let errors = {};
   let creditCart = valid.number(values.number);
 
   creditCart.expirationDate = valid.expirationDate(values.expirationDate);
   creditCart.name = valid.cardholderName(values.name);
   creditCart.cvc = valid.cvv(values.cvc);
-
-  console.log(creditCart);
+  creditCart.number = valid.number(values.number);
 
   errors.show = true;
-  errors.variant = "danger";
   errors.message = "An unknown error ocurred. Please try again later.";
   errors.name = false;
   errors.number = false;
@@ -52,7 +49,6 @@ export default function validateInfo(values) {
   }
 
   if (errors.name && errors.number && errors.cvc && errors.expirationDate) {
-    errors.variant = true;
     errors.message = "Credit card is valid";
   }
 
