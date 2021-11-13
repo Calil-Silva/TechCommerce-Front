@@ -10,31 +10,33 @@ import {
 } from "../../Services/orderPersistence";
 import { removeUserData } from "../../Services/loginPersistence";
 import { useHistory } from "react-router";
+import UserContext from "../../Contexts/UserContext";
 
-export default function Cart({ isOpenBag, userData }) {
+export default function Cart({ isOpenBag }) {
   const { purchases, setPurchases } = useContext(CheckoutContext);
+  const { setUserOnline, userOnline } = useContext(UserContext);
   const history = useHistory();
 
   const difItemsOrder = () => {
     let difItemsArr = [...new Set(purchases.map((p) => p.name))];
     let difItemsArrObj = [];
-    let amount = 0;
     for (let i = 0; i < difItemsArr.length; i++) {
+      let amount = 0;
       for (let j = 0; j < purchases.length; j++) {
-        if (difItemsArr[i] === purchases[i].name) {
+        if (difItemsArr[i] === purchases[j].name) {
           amount++;
         }
       }
       difItemsArrObj.push({
         name: difItemsArr[i],
         amount,
-        img: purchases.find((purchase) => purchase.name === difItemsArr[i]).img,
+        url_image: purchases.find(
+          (purchase) => purchase.name === difItemsArr[i]
+        ).url_image,
       });
     }
     return difItemsArrObj;
   };
-
-  console.log(difItemsOrder());
 
   const removeItem = (event, index) => {
     event.stopPropagation();
@@ -45,6 +47,7 @@ export default function Cart({ isOpenBag, userData }) {
 
   const SigOut = () => {
     removeUserData();
+    setUserOnline(false);
     history.push("/");
   };
 
@@ -54,7 +57,7 @@ export default function Cart({ isOpenBag, userData }) {
       {difItemsOrder().map((p, i) => {
         return (
           <AllPurchases>
-            <img src={p.img} alt="" />
+            <img src={p.url_image} alt="apple" />
             <div>
               <span>{p.name}</span>
               <span>x{p.amount}</span>
@@ -70,14 +73,17 @@ export default function Cart({ isOpenBag, userData }) {
         <IconBag />
         <span>Sacola</span>
       </Divider>
-      <Divider to="/signin">
-        <Signin />
-        <span>Entrar</span>
-      </Divider>
-      <Divider to="/" userData={userData} onClick={SigOut}>
-        <Signout />
-        <span>Sair</span>
-      </Divider>
+      {userOnline ? (
+        <Divider to="/signin">
+          <Signin />
+          <span>Entrar</span>
+        </Divider>
+      ) : (
+        <Divider to="/" onClick={() => SigOut()}>
+          <Signout />
+          <span>Sair</span>
+        </Divider>
+      )}
     </ToolTipBag>
   );
 }
@@ -90,10 +96,6 @@ const PatternItems = css`
 
   &:not(:last-of-type) {
     border-bottom: 1px solid hsla(0, 0%, 75%, 1);
-  }
-
-  &:nth-last-child(2) {
-    border-bottom: ${({ userData }) => (userData ? "initial" : "none")};
   }
 
   span {
@@ -125,29 +127,29 @@ const AllPurchases = styled.div`
   img {
     height: 3rem;
     width: 3rem;
+    object-fit: cover;
   }
 
   div {
     display: flex;
     flex-direction: column;
+    margin-left: 1rem;
   }
 
   span {
     font-size: 0.9rem;
     color: black;
+    margin-top: 0.25rem;
 
     &:last-child {
       color: hsla(0, 0%, 55%, 1);
+      margin-top: 0.25rem;
     }
   }
 `;
 
 const Divider = styled(Link)`
   ${PatternItems}
-
-  &:last-child {
-    display: ${({ userData }) => (userData ? "" : "none")};
-  }
 `;
 
 const Submit = styled(Link)`

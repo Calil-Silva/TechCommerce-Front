@@ -54,7 +54,7 @@ export default function Topbar() {
             <ArrowBag isOpenBag={isOpenBag} />
           </div>
           <CartWrapper isOpenBag={isOpenBag}>
-            <Cart isOpenBag={isOpenBag} userData={userData} />
+            <Cart isOpenBag={isOpenBag} />
             <CartBackground />
           </CartWrapper>
         </IconsToolTipWrapper>
