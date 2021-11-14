@@ -5,6 +5,7 @@ import Typewriter from "typewriter-effect";
 import { getProductsCategoryRequest } from "../../Services/TechCommer";
 import { storeOrderData } from "../../Services/orderPersistence";
 import CheckoutContext from "../../Contexts/CheckoutContext";
+import Loading from "../../Shared/LoadingPage";
 
 export default function ProductPage() {
   const { categoryName } = useParams();
@@ -57,7 +58,7 @@ export default function ProductPage() {
   }, [renderProducts, categoryName]);
 
   if (!products) {
-    return "LOADING";
+    return <Loading />;
   }
   return (
     <PromoDiv onClick={() => setIsOpenBag(false)}>
