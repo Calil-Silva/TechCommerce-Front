@@ -36,8 +36,10 @@ export default function Home() {
           return (
             <Figure key={index} to={`${category.name}`} value={category.value}>
               <figcaption>{category.name}</figcaption>
-              <ImageCategorie src={category.url_image} />
+              <ImageCategorie className="top" src={category.url_image.split('|')[0]} />
+              <ImageCategorie className="back" src={category.url_image.split('|')[1]} />
             </Figure>
+
           );
         })}
       </Main>
