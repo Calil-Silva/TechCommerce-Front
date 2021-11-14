@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { keyframes } from "styled-components";
 import { AiFillApple, AiOutlineSearch } from "react-icons/ai";
-import { BsBag } from "react-icons/bs";
+import { BsBag, BsTriangleFill } from "react-icons/bs";
 import { HiMenuAlt4 } from "react-icons/hi";
 import { IoCloseSharp } from "react-icons/io5";
 
@@ -104,6 +104,13 @@ const IconBag = styled(BsBag)`
   width: 18px;
   height: 18px;
   color: rgba(255, 255, 255, 0.8);
+  ::selection {
+    user-select: none;
+  }
+
+  :hover {
+    cursor: pointer;
+  }
 
   @media (max-width: 834px) {
     width: 20px;
@@ -136,6 +143,76 @@ const IconCloseMenu = styled(IoCloseSharp)`
   }
 `;
 
+const IconsToolTipWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
+`;
+
+const PurchasesAmount = styled.div`
+  width: 15px;
+  height: 15px;
+  border-radius: 100%;
+  background-color: #fff;
+  font-size: 12px;
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  color: #000;
+  display: ${({ displayPurchasesAmount }) =>
+    displayPurchasesAmount ? "flex" : "none"};
+  justify-content: center;
+  align-items: center;
+  user-select: none;
+
+  :hover {
+    cursor: pointer;
+  }
+`;
+
+const CartWrapper = styled.div`
+  display: ${({ isOpenBag }) => (isOpenBag ? "inherit" : "none")};
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: absolute;
+  top: 35px;
+  width: 500px;
+  margin-right: 1px;
+
+  @media (max-width: 834px) {
+    width: 100%;
+    align-items: flex-end;
+  }
+`;
+
+const ArrowBag = styled(BsTriangleFill)`
+  font-size: 20px;
+  color: #fff;
+  position: absolute;
+  top: 25px;
+  right: 0px;
+  z-index: 1000;
+  display: ${({ isOpenBag }) => (isOpenBag ? "initial" : "none")};
+
+  @media (max-width: 834px) {
+    right: 15px;
+  }
+`;
+
+const CartBackground = styled.div`
+  background-color: rgba(0, 0, 0, 0.7);
+  height: 40rem;
+  width: 100vw;
+  display: none;
+
+  @media (max-width: 834px) {
+    display: initial;
+  }
+`;
+
 export {
   IconOpenMenu,
   IconCloseMenu,
@@ -148,4 +225,9 @@ export {
   menuAnimationClose,
   Header,
   Ul,
+  PurchasesAmount,
+  IconsToolTipWrapper,
+  CartWrapper,
+  ArrowBag,
+  CartBackground,
 };

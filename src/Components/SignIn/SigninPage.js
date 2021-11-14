@@ -6,12 +6,17 @@ import { storeUserDAta } from "../../Services/loginPersistence";
 import { postLogin } from "../../Services/TechCommer";
 import { handleEmailAlert, handlePasswordAlert } from "../../factories/alerts";
 import { useHistory } from "react-router-dom";
+import CheckoutContext from "../../Contexts/CheckoutContext";
+import { useContext } from "react";
+import UserContext from "../../Contexts/UserContext";
 
 export default function SigninPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [sendStatus, setSendStatus] = useState(false);
   const [disableSubmit, setDisableSubmit] = useState(false);
+  const { setIsOpenBag } = useContext(CheckoutContext);
+  const { setUserOnline, userOnline } = useContext(UserContext);
   const history = useHistory();
 
   const userData = {
@@ -39,7 +44,8 @@ export default function SigninPage() {
       .then((res) => {
         storeUserDAta(res.data);
         setDisableSubmit(false);
-        history.push("/home");
+        setUserOnline(!userOnline);
+        history.goBack();
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -48,7 +54,7 @@ export default function SigninPage() {
   };
 
   return (
-    <>
+    <div onClick={() => setIsOpenBag(false)}>
       <FormContainer>
         <Form>
           <Header>Por gentileza, insira seus dados nos campos abaixo.</Header>
@@ -95,7 +101,7 @@ export default function SigninPage() {
         ))}
       </Links>
       <Info>{ref}</Info>
-    </>
+    </div>
   );
 }
 
