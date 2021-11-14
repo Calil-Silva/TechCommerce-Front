@@ -2,14 +2,27 @@ import styled, { css, keyframes } from "styled-components/macro";
 import CreditCardForm from "./CreditCard";
 import { Link } from "react-router-dom";
 import { IoLogoAppleAr } from "react-icons/io5";
-import { rotateIn } from "react-animations";
+import { flipOutY, rotateIn } from "react-animations";
+import CheckoutContext from "../../Contexts/CheckoutContext";
+import { useContext } from "react";
 
 export default function CheckOut() {
+  const { groupedPurchases } = useContext(CheckoutContext);
+  const links = [
+    "Condições de uso",
+    "Política de privacidade",
+    "Ajuda",
+    "Cookies",
+    "Fale conosco",
+  ];
+  const ref = "© 1009-2021, TechCommerce, Inc. ou suas afiliadas";
+
+  console.log(groupedPurchases);
   return (
     <Body>
       <SectionHeader>
         <BagLink to="/cart">
-          <span>Veja o que está na sua sacola R$ 41.497,00.</span>
+          <span>{`Veja o que está na sua sacola de R$.`}</span>
         </BagLink>
       </SectionHeader>
       <PaymentContainer>
@@ -61,6 +74,14 @@ export default function CheckOut() {
           </LogoTech>
         </ReviewContainer>
       </PaymentContainer>
+      <Links>
+        {links.map((link, index) => (
+          <a href="http://localhost:3000/signin" key={index}>
+            {link}
+          </a>
+        ))}
+      </Links>
+      <Info>{ref}</Info>
     </Body>
   );
 }
@@ -197,11 +218,16 @@ const LogoApple = styled(IoLogoAppleAr)`
   animation: 5s infinite linear ${rotateAnimation};
 `;
 
+const flipAnimation = keyframes`${flipOutY}`;
+
 const Links = styled.div`
   display: flex;
   justify-content: center;
   column-gap: 1rem;
-  margin: 1.5rem 2rem;
+  margin: 0.5rem 2rem;
+  border-top: 1px solid hsl(240, 6%, 83%);
+  width: 100%;
+  padding: 0.5rem;
   a {
     font-size: 0.9rem;
     color: blue;

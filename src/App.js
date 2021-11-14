@@ -17,6 +17,7 @@ export default function App() {
   const localUserData = getUserData();
   const [userData, setUserData] = useState({ ...localUserData });
   const [purchases, setPurchases] = useState(getOrderData());
+  const [groupedPurchases, setGroupedPurchases] = useState([]);
   const [isOpenBag, setIsOpenBag] = useState(false);
   const [userOnline, setUserOnline] = useState(localUserData ? true : false);
 
@@ -30,7 +31,14 @@ export default function App() {
     >
       <BrowserRouter>
         <CheckoutContext.Provider
-          value={{ purchases, setPurchases, isOpenBag, setIsOpenBag }}
+          value={{
+            purchases,
+            setPurchases,
+            isOpenBag,
+            setIsOpenBag,
+            groupedPurchases,
+            setGroupedPurchases,
+          }}
         >
           <Topbar />
           <Switch>

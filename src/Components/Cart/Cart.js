@@ -2,7 +2,7 @@ import styled, { css } from "styled-components/macro";
 import { BsBag, BsPersonCircle, BsFillPersonXFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import CheckoutContext from "../../Contexts/CheckoutContext";
-import { useContext } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import {
   removeOrderData,
@@ -13,7 +13,8 @@ import { useHistory } from "react-router";
 import UserContext from "../../Contexts/UserContext";
 
 export default function Cart({ isOpenBag }) {
-  const { purchases, setPurchases } = useContext(CheckoutContext);
+  const { purchases, setPurchases, setGroupedPurchases } =
+    useContext(CheckoutContext);
   const { setUserOnline, userOnline } = useContext(UserContext);
   const history = useHistory();
 
@@ -38,11 +39,16 @@ export default function Cart({ isOpenBag }) {
     return difItemsArrObj;
   };
 
+  useEffect(() => {
+    setGroupedPurchases(difItemsOrder());
+  }, [purchases]);
+
   const removeItem = (event, index) => {
     event.stopPropagation();
     setPurchases(purchases.filter((_, i) => i !== index));
     removeOrderData();
     storeOrderData(purchases);
+    difItemsOrder();
   };
 
   const SigOut = () => {

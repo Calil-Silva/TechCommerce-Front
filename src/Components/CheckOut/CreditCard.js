@@ -22,7 +22,7 @@ export default function CreditCard() {
         </div>
         <Form
           className="form"
-          autocomplete="off"
+          autoComplete="off"
           onSubmit={(e) => handleSubmit(e)}
         >
           <Form.Group className="inputs">
