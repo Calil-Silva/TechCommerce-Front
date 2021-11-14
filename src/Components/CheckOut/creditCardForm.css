@@ -43,3 +43,14 @@
     width: 18rem;
     margin: auto;
 }
+
+@media (max-width: 834px) {
+    .creditCardOption {
+        width: 100%;
+        margin-bottom: 2rem;
+        border: none;
+    }
+    .alertMessage {
+        bottom: 1rem;
+    }
+}

@@ -7,7 +7,6 @@ import "./creditCardForm.css";
 
 export default function CreditCard() {
   const { handleChange, handleFocus, handleSubmit, values, errors } = useForm();
-  let statusMessage = "alertMessage hideContent";
 
   return (
     <>
@@ -87,10 +86,7 @@ export default function CreditCard() {
           <Button
             className="submitButton"
             type="submit"
-            onClick={(e) => {
-              handleSubmit(e);
-              statusMessage = "alertMessage";
-            }}
+            onClick={(e) => handleSubmit(e)}
           >
             Validar
           </Button>

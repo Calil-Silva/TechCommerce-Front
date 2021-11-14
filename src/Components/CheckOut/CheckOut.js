@@ -1,6 +1,5 @@
 import styled, { css, keyframes } from "styled-components/macro";
 import CreditCardForm from "./CreditCard";
-import { BsBag } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import { IoLogoAppleAr } from "react-icons/io5";
 import { rotateIn } from "react-animations";
@@ -11,7 +10,6 @@ export default function CheckOut() {
       <SectionHeader>
         <BagLink to="/cart">
           <span>Veja o que está na sua sacola R$ 41.497,00.</span>
-          <BagIcon />
         </BagLink>
       </SectionHeader>
       <PaymentContainer>
@@ -21,8 +19,9 @@ export default function CheckOut() {
             <form>
               <input
                 list="method"
+                type="text"
                 placeholder="Escolha o meio de pagamento"
-              ></input>
+              />
               <datalist id="method">
                 <option value="PIX" />
                 <option value="Cartão de crédito" />
@@ -102,13 +101,11 @@ const Section = styled.div`
     width: 18rem;
     margin: 2rem 0 3rem;
   }
-`;
 
-const BagIcon = styled(BsBag)`
-  font-size: 35px;
-
-  :hover {
-    color: hsl(240, 6%, 73%);
+  @media (max-width: 834px) {
+    h1 {
+      text-align: center;
+    }
   }
 `;
 
@@ -131,16 +128,35 @@ const BagLink = styled(Link)`
       color: hsl(240, 6%, 73%);
     }
   }
+
+  @media (max-width: 834px) {
+    span {
+      text-align: center;
+    }
+  }
 `;
 
 const PaymentContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  width: 90rem;
+  width: calc(100vw - 5rem);
+
+  @media (max-width: 834px) {
+    flex-direction: column;
+    width: calc(100vw - 0.5rem);
+  }
 `;
 
 const ReviewContainer = styled.div`
   width: 40rem;
+  text-align: center;
+
+  @media (max-width: 834px) {
+    width: 100%;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+    border-top: none;
+  }
 `;
 
 const ReviewHeader = styled.div`
@@ -160,6 +176,11 @@ const Orders = styled.div`
 
 const Divider = styled.div`
   border: 1px solid hsl(240, 6%, 83%);
+
+  @media (max-width: 834px) {
+      border-top: none;
+    }
+  }
 `;
 
 const LogoTech = styled.div`
@@ -174,4 +195,25 @@ const rotateAnimation = keyframes`${rotateIn}`;
 const LogoApple = styled(IoLogoAppleAr)`
   font-size: 150px;
   animation: 5s infinite linear ${rotateAnimation};
+`;
+
+const Links = styled.div`
+  display: flex;
+  justify-content: center;
+  column-gap: 1rem;
+  margin: 1.5rem 2rem;
+  a {
+    font-size: 0.9rem;
+    color: blue;
+  }
+  @media (max-width: 690px) {
+    margin: 1.5rem 1rem;
+    a {
+      font-size: 0.7rem;
+    }
+  }
+`;
+
+const Info = styled.p`
+  text-align: center;
 `;
