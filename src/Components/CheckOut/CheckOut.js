@@ -1,8 +1,9 @@
-import styled, { css } from "styled-components/macro";
+import styled, { css, keyframes } from "styled-components/macro";
 import CreditCardForm from "./CreditCard";
 import { BsBag } from "react-icons/bs";
 import { Link } from "react-router-dom";
-import { style } from "dom-helpers";
+import { IoLogoAppleAr } from "react-icons/io5";
+import { rotateIn } from "react-animations";
 
 export default function CheckOut() {
   return (
@@ -30,6 +31,7 @@ export default function CheckOut() {
           </Section>
           <CreditCardForm />
         </div>
+        <Divider />
         <ReviewContainer>
           <ReviewHeader>Resumo da sacola:</ReviewHeader>
           <Orders>
@@ -44,6 +46,20 @@ export default function CheckOut() {
             <span>Relógio</span>
             <span>R$ 150000</span>
           </Orders>
+          <div></div>
+          <Orders>
+            <span>Frete</span>
+            <span>R$ 150000</span>
+          </Orders>
+          <Divider />
+          <Orders>
+            <span>Total</span>
+            <span>R$ 150000</span>
+          </Orders>
+          <LogoTech>
+            <LogoApple />
+            <span>TechCommerce</span>
+          </LogoTech>
         </ReviewContainer>
       </PaymentContainer>
     </Body>
@@ -120,12 +136,10 @@ const BagLink = styled(Link)`
 const PaymentContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  background-color: red;
   width: 90rem;
 `;
 
 const ReviewContainer = styled.div`
-  background-color: blue;
   width: 40rem;
 `;
 
@@ -138,4 +152,26 @@ const Orders = styled.div`
   margin: 2rem;
   display: flex;
   justify-content: space-between;
+
+  &:last-of-type {
+    font-weight: bold;
+  }
+`;
+
+const Divider = styled.div`
+  border: 1px solid hsl(240, 6%, 83%);
+`;
+
+const LogoTech = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+const rotateAnimation = keyframes`${rotateIn}`;
+
+const LogoApple = styled(IoLogoAppleAr)`
+  font-size: 150px;
+  animation: 5s infinite linear ${rotateAnimation};
 `;
