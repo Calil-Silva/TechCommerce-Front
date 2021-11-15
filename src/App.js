@@ -18,6 +18,7 @@ export default function App() {
   const [userData, setUserData] = useState({ ...localUserData });
   const [purchases, setPurchases] = useState(getOrderData());
   const [groupedPurchases, setGroupedPurchases] = useState([]);
+  const [typePayment, setTypePayment] = useState("boleto");
   const [isOpenBag, setIsOpenBag] = useState(false);
   const [userOnline, setUserOnline] = useState(localUserData ? true : false);
 
@@ -38,6 +39,8 @@ export default function App() {
             setIsOpenBag,
             groupedPurchases,
             setGroupedPurchases,
+            typePayment,
+            setTypePayment,
           }}
         >
           <Topbar />

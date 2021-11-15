@@ -2,7 +2,7 @@ import styled, { css } from "styled-components/macro";
 import { BsBag, BsPersonCircle, BsFillPersonXFill } from "react-icons/bs";
 import { Link } from "react-router-dom";
 import CheckoutContext from "../../Contexts/CheckoutContext";
-import { useCallback, useContext, useEffect } from "react";
+import { useContext, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import {
   removeOrderData,
@@ -11,11 +11,12 @@ import {
 import { removeUserData } from "../../Services/loginPersistence";
 import { useHistory } from "react-router";
 import UserContext from "../../Contexts/UserContext";
+import { deleteLoggedUser } from "../../Services/TechCommer";
 
 export default function Cart({ isOpenBag }) {
   const { purchases, setPurchases, setGroupedPurchases } =
     useContext(CheckoutContext);
-  const { setUserOnline, userOnline } = useContext(UserContext);
+  const { setUserOnline, userOnline, userData } = useContext(UserContext);
   const history = useHistory();
 
   const difItemsOrder = () => {
@@ -41,7 +42,7 @@ export default function Cart({ isOpenBag }) {
 
   useEffect(() => {
     setGroupedPurchases(difItemsOrder());
-  }, [purchases]);
+  }, [purchases, userData]);
 
   const removeItem = (event, index) => {
     event.stopPropagation();
@@ -54,6 +55,7 @@ export default function Cart({ isOpenBag }) {
   const SigOut = () => {
     removeUserData();
     setUserOnline(false);
+    deleteLoggedUser({ token: userData.token });
     history.push("/");
   };
 

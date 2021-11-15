@@ -4,13 +4,15 @@ import Cards from "react-credit-cards";
 import "react-credit-cards/es/styles-compiled.css";
 import useForm from "./useForm";
 import "./creditCardForm.css";
+import styled, { keyframes } from "styled-components";
+import { flipInY } from "react-animations";
 
-export default function CreditCard() {
+export default function CreditCard({ submitOrder }) {
   const { handleChange, handleFocus, handleSubmit, values, errors } = useForm();
 
   return (
     <>
-      <div className="creditCardOption">
+      <CardTypeContainer>
         <div>
           <Cards
             cvc={values.cvc}
@@ -58,7 +60,7 @@ export default function CreditCard() {
                   className="inputField"
                   type="number"
                   id="expirationDate"
-                  placeholder="Data de validade"
+                  placeholder="Validade"
                   name="expirationDate"
                   values={values.expirationDate}
                   onChange={handleChange}
@@ -73,7 +75,7 @@ export default function CreditCard() {
                   className="inputField"
                   type="number"
                   id="cvc"
-                  placeholder="Cód. de segurança"
+                  placeholder="CVV"
                   name="cvc"
                   values={values.cvc}
                   onChange={handleChange}
@@ -86,13 +88,44 @@ export default function CreditCard() {
           <Button
             className="submitButton"
             type="submit"
-            onClick={(e) => handleSubmit(e)}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleSubmit(e);
+              if (errors.message === "Sucesso!") {
+                submitOrder(values);
+              }
+            }}
           >
-            Validar
+            {errors.message === "Sucesso!" ? "Pagar" : "Validar"}
           </Button>
         </Form>
-      </div>
+      </CardTypeContainer>
       {errors.show && <Alert className="alertMessage">{errors.message}</Alert>}
     </>
   );
 }
+
+const flipAnimation = keyframes`${flipInY}`;
+
+const CardTypeContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 25rem;
+  height: 30rem;
+  border: 1px solid hsl(240, 6%, 83%);
+  margin: auto auto 2rem;
+  border-radius: 15px;
+  -webkit-box-shadow: -1px 8px 15px 0px rgba(0, 0, 0, 0.44);
+  -moz-box-shadow: -1px 8px 15px 0px rgba(0, 0, 0, 0.44);
+  box-shadow: -1px 8px 15px 0px rgba(0, 0, 0, 0.44);
+  backdrop-filter: blur(15px);
+  background: hsla(240, 6%, 83%, 0.3);
+  animation: 1s linear ${flipAnimation};
+  @media (max-width: 834px) {
+    width: 100%;
+    margin-bottom: 2rem;
+    border: none;
+  }
+`;

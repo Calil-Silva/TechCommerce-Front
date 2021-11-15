@@ -10,46 +10,46 @@ export default function validateInfo(values) {
   creditCart.number = valid.number(values.number);
 
   errors.show = true;
-  errors.message = "An unknown error ocurred. Please try again later.";
+  errors.message = "Um erro desconhecido ocorreu. Tente mais tarde.";
   errors.name = false;
   errors.number = false;
   errors.expirationDate = false;
   errors.cvc = false;
 
   if (values.cvc === null || !values.cvc.trim()) {
-    errors.message = "Credit card CVC is imcomplete";
+    errors.message = "O código está incompleto";
   } else if (creditCart.cvc.isValid) {
     errors.cvc = true;
   } else {
-    errors.message = "Credit card CVC is invalid";
+    errors.message = "O código está errado";
   }
 
   if (values.expirationDate === null || !values.expirationDate.trim()) {
-    errors.message = "Credit card expiration is imcomplete";
+    errors.message = "A validade está incompleta";
   } else if (creditCart.expirationDate.isValid) {
     errors.expirationDate = true;
   } else {
-    errors.message = "Credit card expiration is invalid";
+    errors.message = "A validade está errada";
   }
 
   if (values.number === null || !values.number.trim()) {
-    errors.message = "Credit card number is imcomplete";
+    errors.message = "O número está incompleto";
   } else if (creditCart.number.isValid) {
     errors.number = true;
   } else {
-    errors.message = "Credit card number is invalid";
+    errors.message = "O número está errado";
   }
 
   if (values.name === null || !values.name.trim()) {
-    errors.message = "Credit card name is imcomplete";
+    errors.message = "O nome está incompleto";
   } else if (creditCart.name.isValid) {
     errors.name = true;
   } else {
-    errors.message = "Credit card name is invalid";
+    errors.message = "O nome está errado";
   }
 
   if (errors.name && errors.number && errors.cvc && errors.expirationDate) {
-    errors.message = "Credit card is valid";
+    errors.message = "Sucesso!";
   }
 
   return errors;

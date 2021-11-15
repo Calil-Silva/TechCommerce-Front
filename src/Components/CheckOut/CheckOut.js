@@ -1,13 +1,20 @@
-import styled, { css, keyframes } from "styled-components/macro";
-import CreditCardForm from "./CreditCard";
+import styled, { keyframes } from "styled-components/macro";
 import { Link } from "react-router-dom";
 import { IoLogoAppleAr } from "react-icons/io5";
-import { flipOutY, rotateIn } from "react-animations";
+import { rotateIn } from "react-animations";
 import CheckoutContext from "../../Contexts/CheckoutContext";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
+import BankPayment from "./BankPayment";
+import CreditCard from "./CreditCard";
+import UserContext from "../../Contexts/UserContext";
+import { putProducts } from "../../Services/TechCommer";
+import { useHistory } from "react-router";
 
 export default function CheckOut() {
-  const { groupedPurchases } = useContext(CheckoutContext);
+  const { groupedPurchases, setTypePayment, typePayment, purchases, setIsOpenBag } =
+    useContext(CheckoutContext);
+  const { userData } = useContext(UserContext);
+  const history = useHistory();
   const links = [
     "Condições de uso",
     "Política de privacidade",
@@ -16,13 +23,40 @@ export default function CheckOut() {
     "Fale conosco",
   ];
   const ref = "© 1009-2021, TechCommerce, Inc. ou suas afiliadas";
+  const price = purchases.reduce((acc, value) => acc += Number(value.price), 0)
+  console.log(price)
 
-  console.log(groupedPurchases);
+  function changePaymentType(e) {
+    if (e.target.value === "boleto") {
+      return setTypePayment("boleto");
+    }
+    return setTypePayment("crédito");
+  }
+
+  function submitOrder(creditcard) {
+    if (!userData.token) return alert("Faça o login antes de continuar!");
+    const body = [
+      groupedPurchases,
+      userData,
+      { creditCardInfo: creditcard, type: typePayment },
+    ];
+    delete body.url_image;
+
+    putProducts(body)
+      .then(() => {
+        alert("Compra concluída!");
+        history.push("/");
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+      });
+  }
+
   return (
-    <Body>
+    <Body onClick={() => setIsOpenBag(false)}>
       <SectionHeader>
         <BagLink to="/cart">
-          <span>{`Veja o que está na sua sacola de R$.`}</span>
+          <span>{`Veja o que está na sua sacola de $ ${price}`}</span>
         </BagLink>
       </SectionHeader>
       <PaymentContainer>
@@ -30,44 +64,54 @@ export default function CheckOut() {
           <Section>
             <h1>Informações de pagamento</h1>
             <form>
-              <input
-                list="method"
-                type="text"
-                placeholder="Escolha o meio de pagamento"
-              />
-              <datalist id="method">
-                <option value="PIX" />
-                <option value="Cartão de crédito" />
-              </datalist>
+              <PaymentTypeContainer>
+                <div>
+                  <input
+                    type="radio"
+                    id="html"
+                    name="checked"
+                    value="boleto"
+                    onClick={(e) => changePaymentType(e)}
+                  />
+                  <label for="html">Boleto</label>
+                </div>
+                <div>
+                  <input
+                    type="radio"
+                    id="credito"
+                    name="checked"
+                    value="crédito"
+                    onClick={(e) => changePaymentType(e)}
+                  />
+                  <label for="credito">Cartão de crédito</label>
+                </div>
+              </PaymentTypeContainer>
             </form>
           </Section>
-          <CreditCardForm />
+          <PaymentType>
+            {typePayment === "boleto" ? (
+              <BankPayment submitOrder={submitOrder} />
+            ) : (
+              <CreditCard submitOrder={submitOrder} />
+            )}
+          </PaymentType>
         </div>
         <Divider />
         <ReviewContainer>
           <ReviewHeader>Resumo da sacola:</ReviewHeader>
-          <Orders>
-            <span>tablet</span>
-            <span>R$ 150000</span>
+          {purchases.map(({name, price}) => {
+            return (
+            <Orders>
+            <span>{name}</span>
+            <span>$ {price}</span>
           </Orders>
-          <Orders>
-            <span>Celular</span>
-            <span>R$ 150000</span>
-          </Orders>
-          <Orders>
-            <span>Relógio</span>
-            <span>R$ 150000</span>
-          </Orders>
-          <div></div>
-          <Orders>
-            <span>Frete</span>
-            <span>R$ 150000</span>
-          </Orders>
+          )
+          })}
           <Divider />
-          <Orders>
+          <Total>
             <span>Total</span>
-            <span>R$ 150000</span>
-          </Orders>
+            <span>$ {price}</span>
+          </Total>
           <LogoTech>
             <LogoApple />
             <span>TechCommerce</span>
@@ -108,6 +152,12 @@ const SectionHeader = styled.div`
   }
 `;
 
+const PaymentTypeContainer = styled.div`
+  display: flex;
+  width: 400px;
+  justify-content: space-around;
+`;
+
 const Section = styled.div`
   display: flex;
   justify-content: center;
@@ -118,9 +168,17 @@ const Section = styled.div`
     font-size: 2rem;
   }
 
+  div {
+  }
+
   input {
-    width: 18rem;
-    margin: 2rem 0 3rem;
+    width: 1rem;
+    margin: 2rem 5px;
+    background-color: red;
+  }
+
+  label {
+    margin-left: 1rem;
   }
 
   @media (max-width: 834px) {
@@ -171,6 +229,9 @@ const PaymentContainer = styled.div`
 const ReviewContainer = styled.div`
   width: 40rem;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   @media (max-width: 834px) {
     width: 100%;
@@ -182,7 +243,7 @@ const ReviewContainer = styled.div`
 
 const ReviewHeader = styled.div`
   font-size: 2rem;
-  margin: 0 auto;
+  margin: 0 auto 7rem;
 `;
 
 const Orders = styled.div`
@@ -209,6 +270,7 @@ const LogoTech = styled.div`
   justify-content: center;
   align-items: center;
   flex-direction: column;
+  margin-bottom: 2rem;
 `;
 
 const rotateAnimation = keyframes`${rotateIn}`;
@@ -218,13 +280,11 @@ const LogoApple = styled(IoLogoAppleAr)`
   animation: 5s infinite linear ${rotateAnimation};
 `;
 
-const flipAnimation = keyframes`${flipOutY}`;
-
 const Links = styled.div`
   display: flex;
   justify-content: center;
   column-gap: 1rem;
-  margin: 0.5rem 2rem;
+  margin: 1rem 2rem;
   border-top: 1px solid hsl(240, 6%, 83%);
   width: 100%;
   padding: 0.5rem;
@@ -233,7 +293,7 @@ const Links = styled.div`
     color: blue;
   }
   @media (max-width: 690px) {
-    margin: 1.5rem 1rem;
+    margin: 0.5rem 1rem;
     a {
       font-size: 0.7rem;
     }
@@ -242,4 +302,16 @@ const Links = styled.div`
 
 const Info = styled.p`
   text-align: center;
+  margin-bottom: 1rem;
 `;
+
+const PaymentType = styled.div`
+  position: relative;
+`;
+
+const Total = styled.div`
+  margin: 2rem;
+  display: flex;
+  justify-content: space-between;
+  font-weight: bold;
+`
