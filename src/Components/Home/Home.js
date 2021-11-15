@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState, useContext } from "react";
 import { getCategoriesListRequest } from "../../Services/TechCommer";
 import { Container, Figure, Footer, ImageCategorie, Main } from "./HomeStyled";
 import CheckoutContext from "../../Contexts/CheckoutContext";
-
+import Loading from "../../Shared/LoadingPage"
 export default function Home() {
   const [categories, setCategories] = useState("");
   const { setIsOpenBag } = useContext(CheckoutContext);
@@ -27,7 +27,7 @@ export default function Home() {
   }, [renderCategories]);
 
   if (!categories) {
-    return "";
+    return <Loading />;
   }
   return (
     <Container onClick={() => setIsOpenBag(false)}>
