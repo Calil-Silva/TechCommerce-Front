@@ -2,7 +2,7 @@ import { useCallback, useEffect, useMemo, useState, useContext } from "react";
 import { getCategoriesListRequest } from "../../Services/TechCommer";
 import { Container, Figure, Footer, ImageCategorie, Main } from "./HomeStyled";
 import CheckoutContext from "../../Contexts/CheckoutContext";
-
+import Loading from "../../Shared/LoadingPage"
 export default function Home() {
   const [categories, setCategories] = useState("");
   const { setIsOpenBag } = useContext(CheckoutContext);
@@ -27,7 +27,7 @@ export default function Home() {
   }, [renderCategories]);
 
   if (!categories) {
-    return "";
+    return <Loading />;
   }
   return (
     <Container onClick={() => setIsOpenBag(false)}>
@@ -36,8 +36,10 @@ export default function Home() {
           return (
             <Figure key={index} to={`${category.name}`} value={category.value}>
               <figcaption>{category.name}</figcaption>
-              <ImageCategorie src={category.url_image} />
+              <ImageCategorie className="top" src={category.url_image.split('|')[0]} />
+              <ImageCategorie className="back" src={category.url_image.split('|')[1]} />
             </Figure>
+
           );
         })}
       </Main>
