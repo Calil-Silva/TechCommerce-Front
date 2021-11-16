@@ -21,7 +21,6 @@ import "react-tippy/dist/tippy.css";
 import Cart from "../Cart/Cart";
 import CheckoutContext from "../../Contexts/CheckoutContext";
 import { useContext } from "react";
-import UserContext from "../../Contexts/UserContext";
 
 export default function Topbar() {
   const [isOpenMenu, setIsOpenMenu] = useState(false);
@@ -29,7 +28,6 @@ export default function Topbar() {
   const { purchases, isOpenBag, setIsOpenBag } = useContext(CheckoutContext);
   const purchasesAmount = purchases.length;
   const displayPurchasesAmount = purchasesAmount > 0 && true;
-  const { userData } = useContext(UserContext);
 
   return (
     <Header

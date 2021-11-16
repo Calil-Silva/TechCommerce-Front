@@ -12,6 +12,7 @@ import {
   comparePasswords,
   validEmail,
 } from "../../schemas/userValidations";
+import UserContext from "../../Contexts/UserContext";
 
 export default function SignUp() {
   const [countries, setCountries] = useState(false);
@@ -24,6 +25,7 @@ export default function SignUp() {
   const [confirmedPassword, setConfirmedPassword] = useState("");
   const [disableSubmit, setDisableSubmit] = useState(false);
   const { setIsOpenBag } = useContext(CheckoutContext);
+  const { register, setRegister } = useContext(UserContext);
   const userData = {
     name: `${name} ${surname}`,
     selectedCountry,
@@ -52,6 +54,7 @@ export default function SignUp() {
     postSignup(userData)
       .then((res) => {
         alert(res.data.message);
+        setRegister(!register);
         history.push("/signin");
       })
       .catch((err) => {

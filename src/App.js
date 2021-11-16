@@ -6,6 +6,7 @@ import SignUp from "./Components/SignUp/SignUp";
 import SigninPage from "./Components/SignIn/SigninPage";
 import Topbar from "./Components/TopBar/TopBar";
 import Home from "./Components/Home/Home";
+import CheckOut from "./Components/CheckOut/CheckOut";
 import CheckoutContext from "./Contexts/CheckoutContext";
 import { getOrderData } from "./Services/orderPersistence";
 import { getUserData } from "./Services/loginPersistence";
@@ -18,8 +19,11 @@ export default function App() {
   const localUserData = getUserData();
   const [userData, setUserData] = useState({ ...localUserData });
   const [purchases, setPurchases] = useState(getOrderData());
+  const [groupedPurchases, setGroupedPurchases] = useState([]);
+  const [typePayment, setTypePayment] = useState("boleto");
   const [isOpenBag, setIsOpenBag] = useState(false);
   const [userOnline, setUserOnline] = useState(localUserData ? true : false);
+  const [register, setRegister] = useState(false);
 
   useEffect(() => {
     setUserData({ ...localUserData });
@@ -27,11 +31,27 @@ export default function App() {
 
   return (
     <UserContext.Provider
-      value={{ userData, setUserData, setUserOnline, userOnline }}
+      value={{
+        userData,
+        setUserData,
+        setUserOnline,
+        userOnline,
+        register,
+        setRegister,
+      }}
     >
       <BrowserRouter>
         <CheckoutContext.Provider
-          value={{ purchases, setPurchases, isOpenBag, setIsOpenBag }}
+          value={{
+            purchases,
+            setPurchases,
+            isOpenBag,
+            setIsOpenBag,
+            groupedPurchases,
+            setGroupedPurchases,
+            typePayment,
+            setTypePayment,
+          }}
         >
           <Topbar />
           <Switch>
@@ -39,9 +59,10 @@ export default function App() {
             <Route path="/signin" component={SigninPage} exact />
             <Route path="/signup" component={SignUp} exact />
             <Route path="/cart" component={ReviewCart} exact />
+            <Route path="/checkout" component={CheckOut} exact />
             <Route path="/TV&Casa" component={MaintenancePage} exact />
             <Route path="/Exclusivo-Apple" component={MaintenancePage} exact />
-            <Route path="/Suporte" component={MaintenancePage} exact />  
+            <Route path="/Suporte" component={MaintenancePage} exact />
             <Route path="/:categoryName" component={ProductPage} exact />
           </Switch>
         </CheckoutContext.Provider>
