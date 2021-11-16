@@ -11,6 +11,7 @@ import { getOrderData } from "./Services/orderPersistence";
 import { getUserData } from "./Services/loginPersistence";
 import ProductPage from "./Components/ProductPage/ProductPage";
 import ReviewCart from "./Components/Cart/ReviewCart";
+import MaintenancePage from "./Shared/MaintenancePage";
 import Loading from "./Shared/LoadingPage";
 
 export default function App() {
@@ -38,6 +39,9 @@ export default function App() {
             <Route path="/signin" component={SigninPage} exact />
             <Route path="/signup" component={SignUp} exact />
             <Route path="/cart" component={ReviewCart} exact />
+            <Route path="/TV&Casa" component={MaintenancePage} exact />
+            <Route path="/Exclusivo-Apple" component={MaintenancePage} exact />
+            <Route path="/Suporte" component={MaintenancePage} exact />  
             <Route path="/:categoryName" component={ProductPage} exact />
           </Switch>
         </CheckoutContext.Provider>
