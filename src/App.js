@@ -12,6 +12,7 @@ import { getOrderData } from "./Services/orderPersistence";
 import { getUserData } from "./Services/loginPersistence";
 import ProductPage from "./Components/ProductPage/ProductPage";
 import ReviewCart from "./Components/Cart/ReviewCart";
+import Loading from "./Shared/LoadingPage";
 
 export default function App() {
   const localUserData = getUserData();

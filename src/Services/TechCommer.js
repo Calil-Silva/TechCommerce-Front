@@ -6,6 +6,7 @@ function returnCategoryID(categoryName) {
     Watch: 1,
     AirPods: 2,
     Mac: 3,
+    mac: 3,
     MacBook: 3,
     iPad: 4,
     Ipad: 4,
@@ -35,8 +36,4 @@ export function getProductsCategoryRequest(categoryName) {
 
 export function putProducts(order) {
   return axios.put(`${URL}/checkout`, order);
-}
-
-export function deleteLoggedUser(token) {
-  return axios.delete(`${URL}/signout`, { token });
 }

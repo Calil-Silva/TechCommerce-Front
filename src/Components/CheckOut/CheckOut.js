@@ -3,16 +3,23 @@ import { Link } from "react-router-dom";
 import { IoLogoAppleAr } from "react-icons/io5";
 import { rotateIn } from "react-animations";
 import CheckoutContext from "../../Contexts/CheckoutContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import BankPayment from "./BankPayment";
 import CreditCard from "./CreditCard";
 import UserContext from "../../Contexts/UserContext";
 import { putProducts } from "../../Services/TechCommer";
 import { useHistory } from "react-router";
+import { getOrderData, removeOrderData } from "../../Services/orderPersistence";
 
 export default function CheckOut() {
-  const { groupedPurchases, setTypePayment, typePayment, purchases, setIsOpenBag } =
-    useContext(CheckoutContext);
+  const {
+    groupedPurchases,
+    setTypePayment,
+    typePayment,
+    setPurchases,
+    purchases,
+    setIsOpenBag,
+  } = useContext(CheckoutContext);
   const { userData } = useContext(UserContext);
   const history = useHistory();
   const links = [
@@ -23,14 +30,16 @@ export default function CheckOut() {
     "Fale conosco",
   ];
   const ref = "© 1009-2021, TechCommerce, Inc. ou suas afiliadas";
-  const price = purchases.reduce((acc, value) => acc += Number(value.price), 0)
-  console.log(price)
+  const price = purchases.reduce(
+    (acc, value) => (acc += Number(value.price)),
+    0
+  );
 
   function changePaymentType(e) {
     if (e.target.value === "boleto") {
-      return setTypePayment("boleto");
+      return setTypePayment("bank_slip");
     }
-    return setTypePayment("crédito");
+    return setTypePayment("credit_card");
   }
 
   function submitOrder(creditcard) {
@@ -45,6 +54,8 @@ export default function CheckOut() {
     putProducts(body)
       .then(() => {
         alert("Compra concluída!");
+        removeOrderData();
+        setPurchases(getOrderData());
         history.push("/");
       })
       .catch((err) => {
@@ -89,7 +100,7 @@ export default function CheckOut() {
             </form>
           </Section>
           <PaymentType>
-            {typePayment === "boleto" ? (
+            {typePayment === "bank_slip" ? (
               <BankPayment submitOrder={submitOrder} />
             ) : (
               <CreditCard submitOrder={submitOrder} />
@@ -99,13 +110,13 @@ export default function CheckOut() {
         <Divider />
         <ReviewContainer>
           <ReviewHeader>Resumo da sacola:</ReviewHeader>
-          {purchases.map(({name, price}) => {
+          {purchases.map((p, index) => {
             return (
-            <Orders>
-            <span>{name}</span>
-            <span>$ {price}</span>
-          </Orders>
-          )
+              <Orders key={index}>
+                <span>{p.name}</span>
+                <span>$ {p.price}</span>
+              </Orders>
+            );
           })}
           <Divider />
           <Total>
@@ -314,4 +325,4 @@ const Total = styled.div`
   display: flex;
   justify-content: space-between;
   font-weight: bold;
-`
+`;

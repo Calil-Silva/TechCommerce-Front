@@ -5,18 +5,19 @@ import CheckoutContext from "../../Contexts/CheckoutContext";
 import { useContext, useEffect } from "react";
 import { IoClose } from "react-icons/io5";
 import {
+  getOrderData,
   removeOrderData,
   storeOrderData,
 } from "../../Services/orderPersistence";
 import { removeUserData } from "../../Services/loginPersistence";
 import { useHistory } from "react-router";
 import UserContext from "../../Contexts/UserContext";
-import { deleteLoggedUser } from "../../Services/TechCommer";
 
 export default function Cart({ isOpenBag }) {
   const { purchases, setPurchases, setGroupedPurchases } =
     useContext(CheckoutContext);
   const { setUserOnline, userOnline, userData } = useContext(UserContext);
+  const purchasesNames = purchases.map((p) => p.name);
   const history = useHistory();
 
   const difItemsOrder = () => {
@@ -42,11 +43,14 @@ export default function Cart({ isOpenBag }) {
 
   useEffect(() => {
     setGroupedPurchases(difItemsOrder());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [purchases, userData]);
 
   const removeItem = (event, index) => {
     event.stopPropagation();
-    setPurchases(purchases.filter((_, i) => i !== index));
+    setPurchases(
+      purchases.filter((_, i) => i !== purchasesNames.indexOf(index))
+    );
     removeOrderData();
     storeOrderData(purchases);
     difItemsOrder();
@@ -55,22 +59,23 @@ export default function Cart({ isOpenBag }) {
   const SigOut = () => {
     removeUserData();
     setUserOnline(false);
-    deleteLoggedUser({ token: userData.token });
+    removeOrderData();
+    setPurchases(getOrderData());
     history.push("/");
   };
 
   return (
-    <ToolTipBag isOpenBag={isOpenBag}>
+    <ToolTipBag isopenbag={isOpenBag}>
       <Header purchases={purchases.length}>Sua sacola está vazia</Header>
       {difItemsOrder().map((p, i) => {
         return (
-          <AllPurchases>
+          <AllPurchases key={i}>
             <img src={p.url_image} alt="apple" />
             <div>
               <span>{p.name}</span>
               <span>x{p.amount}</span>
             </div>
-            <Remove onClick={(e) => removeItem(e, i)} />
+            <Remove onClick={(e) => removeItem(e, p.name)} />
           </AllPurchases>
         );
       })}
@@ -209,7 +214,7 @@ const ToolTipBag = styled.div`
   padding: 0.5rem 1rem;
   position: sticky;
   right: 0;
-  display: ${({ isOpenBag }) => (isOpenBag ? "initial" : "none")};
+  display: ${({ isopenbag }) => (isopenbag ? "initial" : "none")};
   ::-webkit-scrollbar {
     display: none;
   }

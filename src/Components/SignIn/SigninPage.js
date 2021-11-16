@@ -9,19 +9,21 @@ import { useHistory } from "react-router-dom";
 import CheckoutContext from "../../Contexts/CheckoutContext";
 import { useContext } from "react";
 import UserContext from "../../Contexts/UserContext";
+import { storeOrderData } from "../../Services/orderPersistence";
 
 export default function SigninPage() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [sendStatus, setSendStatus] = useState(false);
   const [disableSubmit, setDisableSubmit] = useState(false);
-  const { setIsOpenBag } = useContext(CheckoutContext);
+  const { setIsOpenBag, purchases } = useContext(CheckoutContext);
   const { setUserOnline, userOnline } = useContext(UserContext);
   const history = useHistory();
 
   const userData = {
     email,
     password,
+    purchases,
   };
   const links = [
     "Condições de uso",

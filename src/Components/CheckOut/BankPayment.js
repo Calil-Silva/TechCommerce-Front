@@ -1,13 +1,8 @@
 import styled, { keyframes } from "styled-components";
 import { GrDocumentPdf } from "react-icons/gr";
 import { flipInY } from "react-animations";
-import UserContext from "../../Contexts/UserContext";
-import { useContext, useState } from "react";
-import CheckoutContext from "../../Contexts/CheckoutContext";
 
 export default function BankPayment({ submitOrder }) {
-  const { setUserData, userData } = useContext(UserContext);
-  const { typePayment } = useContext(CheckoutContext);
   const boleto = `
           Informações pessoais:
           Nome: fulano da sila
