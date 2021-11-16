@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { validateEmail } from "../../schemas/userValidations";
+import { validateEmail, validatePassword } from "../../schemas/userValidations";
 import { storeUserDAta } from "../../Services/loginPersistence";
 import { postLogin } from "../../Services/TechCommer";
 import { handleEmailAlert, handlePasswordAlert } from "../../factories/alerts";
@@ -36,8 +36,9 @@ export default function SigninPage() {
     e.preventDefault();
     setDisableSubmit(true);
 
-    if (!validateEmail(email)) {
+    if (!validateEmail(email) || !validatePassword(password)) {
       setSendStatus(true);
+      return;
     }
 
     postLogin(userData)
