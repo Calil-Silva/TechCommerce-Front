@@ -17,7 +17,8 @@ export default function SigninPage() {
   const [sendStatus, setSendStatus] = useState(false);
   const [disableSubmit, setDisableSubmit] = useState(false);
   const { setIsOpenBag, purchases } = useContext(CheckoutContext);
-  const { setUserOnline, userOnline } = useContext(UserContext);
+  const { setUserOnline, userOnline, register, setRegister } =
+    useContext(UserContext);
   const history = useHistory();
 
   const userData = {
@@ -48,6 +49,12 @@ export default function SigninPage() {
         storeUserDAta(res.data);
         setDisableSubmit(false);
         setUserOnline(!userOnline);
+
+        if (register) {
+          setRegister(!register);
+          history.push("/");
+          return;
+        }
         history.goBack();
       })
       .catch((err) => {

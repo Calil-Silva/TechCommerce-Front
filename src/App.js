@@ -23,6 +23,7 @@ export default function App() {
   const [typePayment, setTypePayment] = useState("boleto");
   const [isOpenBag, setIsOpenBag] = useState(false);
   const [userOnline, setUserOnline] = useState(localUserData ? true : false);
+  const [register, setRegister] = useState(false);
 
   useEffect(() => {
     setUserData({ ...localUserData });
@@ -30,7 +31,14 @@ export default function App() {
 
   return (
     <UserContext.Provider
-      value={{ userData, setUserData, setUserOnline, userOnline }}
+      value={{
+        userData,
+        setUserData,
+        setUserOnline,
+        userOnline,
+        register,
+        setRegister,
+      }}
     >
       <BrowserRouter>
         <CheckoutContext.Provider
