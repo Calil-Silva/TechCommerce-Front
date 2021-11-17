@@ -1,5 +1,5 @@
 import axios from "axios";
-const URL = "https://git.heroku.com/techcommerce-appweb.git";
+const URL = "https://techcommerce-appweb.herokuapp.com";
 
 function returnCategoryID(categoryName) {
   const ids = {
