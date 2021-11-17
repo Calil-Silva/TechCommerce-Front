@@ -1,0 +1,37 @@
+
+.form {
+    width: 18rem;
+}
+
+.form .inputs {
+    margin-bottom: 1rem;
+}
+
+.form .inputs:first-child {
+    margin-top: 1rem;
+}
+
+.form .inputs .inputField, .inputField::placeholder {
+    font-size: 0.9rem;
+}
+
+.form .submitButton {
+    width: 18rem;
+}
+
+.alertMessage {
+    height: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    display: fixed;
+    bottom: -15px;
+    width: 18rem;
+    margin: auto;
+}
+
+@media (max-width: 834px) {
+    .alertMessage {
+        bottom: 1rem;
+    }
+}
